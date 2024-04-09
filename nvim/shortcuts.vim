@@ -43,6 +43,6 @@ autocmd FileType sql,mysql,plsql lua require('cmp').setup.buffer({ sources = {{ 
 :map <Left> <Nop>
 :map <Right> <Nop>
 :map <Down> <Nop>
-nmap <Leader>gf :DiffviewFileHistory %<CR>
+" nmap <Leader>gf :DiffviewFileHistory %<CR>
 nmap <silent> <esc><esc> :noh<cr>
 nmap <Leader>i :TSToolsAddMissingImports<CR>
