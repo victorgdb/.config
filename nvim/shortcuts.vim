@@ -1,7 +1,7 @@
 let mapleader = ' '
 nnoremap <D-p> :Telescope find_files<CR>
 nmap <Leader>ff :Telescope live_grep<CR>
-nmap <Leader>tt :Neotree toggle<CR>
+nmap <c-f> :Neotree toggle<CR>
 nmap <Leader>fj :%!jq '.'<CR>
 nmap <Leader>zz :ZenMode<CR>
 nmap gf :lua vim.diagnostic.open_float()<CR>
@@ -39,10 +39,11 @@ autocmd BufWritePre *.tsx,*.ts :EslintFixAll
 nnoremap <leader>xx <cmd>TroubleToggle<cr>
 nnoremap <leader>dd <cmd>DBUIToggle<cr>
 autocmd FileType sql,mysql,plsql lua require('cmp').setup.buffer({ sources = {{ name = 'vim-dadbod-completion' }} })
-:map <Up> <Nop>
-:map <Left> <Nop>
-:map <Right> <Nop>
-:map <Down> <Nop>
 " nmap <Leader>gf :DiffviewFileHistory %<CR>
-nmap <silent> <esc><esc> :noh<cr>
+nmap <Leader>c :noh<cr>
 nmap <Leader>i :TSToolsAddMissingImports<CR>
+nmap <Leader>p :Oil<CR>
+nmap <c-t> :ToggleTermToggleAll<CR>
+nnoremap <S-Left> :BufferMovePrevious<CR>
+nnoremap <S-Right> :BufferMoveNext<CR>
+nnoremap <D-s-t> :BufferRestore<CR>
