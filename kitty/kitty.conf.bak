@@ -3,7 +3,7 @@
 hide_window_decorations titlebar-only 
 window_padding_width 0 5 
 # BEGIN_KITTY_THEME
-# Rosé Pine
+# Rosé Pine Moon
 include current-theme.conf
 # END_KITTY_THEME
 font_family FiraCode Nerd Font
@@ -13,6 +13,10 @@ bold_italic_font      auto
 map cmd+w pass_keys
 map cmd+r pass_keys
 map cmd+t pass_keys
+map cmd+left pass_keys
+map cmd+right pass_keys
 underline_hyperlinks hover
 open_url_with default
-
+map cmd+shift+l next_tab
+map cmd+shift+h previous_tab
+enabled_layouts tall:bias=50;full_size=1;mirrored=false
