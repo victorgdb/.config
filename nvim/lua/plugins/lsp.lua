@@ -19,21 +19,10 @@ return {
     },
     config = function()
       local lspconfig = require 'lspconfig'
-      lspconfig.eslint.setup {
-        on_attach = function(client, bufnr)
-          vim.api.nvim_create_autocmd('BufWritePre', {
-            buffer = bufnr,
-            command = 'EslintFixAll',
-          })
-        end,
-      }
+      lspconfig.tsserver.setup {}
+      lspconfig.eslint.setup {}
       lspconfig.tailwindcss.setup {}
     end,
-  },
-  {
-    'pmizio/typescript-tools.nvim',
-    dependencies = { 'nvim-lua/plenary.nvim', 'neovim/nvim-lspconfig' },
-    opts = {},
   },
   {
     'williamboman/mason.nvim',
@@ -86,7 +75,7 @@ return {
       null_ls.setup {
         sources = {
           null_ls.builtins.formatting.stylua,
-	  null_ls.builtins.formatting.pg_format,
+          null_ls.builtins.formatting.pg_format,
           -- null_ls.builtins.formatting.sqlfluff.with {
           --   extra_args = { '--dialect', 'bigquery' }, -- change to your dialect
           -- },

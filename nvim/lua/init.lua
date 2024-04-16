@@ -17,11 +17,26 @@ end
 vim.opt.rtp:prepend(lazypath)
 require('lazy').setup 'plugins'
 vim.g.db_adapter_bigquery_region = 'kaya'
-vim.cmd.colorscheme 'rose-pine-moon'
--- vim.cmd.colorscheme 'ayu'
+-- vim.cmd.colorscheme 'rose-pine-moon'
+vim.cmd.colorscheme 'ayu'
 -- vim.cmd.colorscheme 'onenord'
 -- vim.cmd 'hi IlluminatedWordRead guibg=#525252'
 vim.api.nvim_set_hl(0, 'IlluminatedWordRead', { link = 'Visual' })
+local _border = "single"
+vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(
+  vim.lsp.handlers.hover, {
+    border = _border
+  }
+)
+
+vim.diagnostic.config {     
+    float = { border = "rounded" }, 
+}
+vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(
+  vim.lsp.handlers.signature_help, {
+    border = _border
+  }
+)
 
 vim.opt.ignorecase = true -- Make searches case insensitive
 vim.opt.smartcase = true -- Make searches case sensitive if there's an uppercase letter in the search
@@ -72,3 +87,22 @@ vim.cmd [[
 	ToggleTerm2
 	ToggleTermToggleAll
 	 ]]
+	 
+
+local harpoon = require("harpoon")
+
+-- REQUIRED
+harpoon:setup()
+-- REQUIRED
+
+vim.keymap.set("n", "<C-a>", function() harpoon:list():add() end)
+vim.keymap.set("n", "<C-e>", function() harpoon.ui:toggle_quick_menu(harpoon:list()) end)
+
+vim.keymap.set("n", "<D-&>", function() harpoon:list():select(1) end)
+vim.keymap.set("n", "<D-é>", function() harpoon:list():select(2) end)
+vim.keymap.set("n", "<D-\">", function() harpoon:list():select(3) end)
+vim.keymap.set("n", "<D-'>", function() harpoon:list():select(4) end)
+
+-- Toggle previous & next buffers stored within Harpoon list
+vim.keymap.set("n", "<C-S-P>", function() harpoon:list():prev() end)
+vim.keymap.set("n", "<C-S-N>", function() harpoon:list():next() end)

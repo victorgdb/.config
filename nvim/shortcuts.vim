@@ -1,5 +1,5 @@
 let mapleader = ' '
-nnoremap <D-p> :Telescope find_files<CR>
+nnoremap <D-p> :Telescope smart_open<CR>
 nmap <Leader>ff :Telescope live_grep<CR>
 nmap <c-f> :Neotree toggle<CR>
 nmap <Leader>fj :%!jq '.'<CR>
@@ -16,23 +16,16 @@ inoremap <D-s> <C-\><C-o>:w<CR>
 nnoremap <D-s> :w<CR>
 nnoremap <D-t> :tabnew<CR>
 nmap gb :Gitsigns blame_line<CR>
-nnoremap <D-&> :BufferGoto 1<CR>
-nnoremap <D-é> :BufferGoto 2<CR>
-nnoremap <D-"> :BufferGoto 3<CR>
-nnoremap <D-'> :BufferGoto 4<CR>
-nnoremap <D-(> :BufferGoto 5<CR>
-nnoremap <D-w> :BufferClose<CR>
-inoremap <D-&> <Esc>:BufferGoto 1<CR>
-inoremap <D-é> <Esc>:BufferGoto 2<CR>
-inoremap <D-"> <Esc>:BufferGoto 3<CR>
-inoremap <D-'> <Esc>:BufferGoto 4<CR>
-inoremap <D-(> <Esc>:BufferGoto 5<CR>
-inoremap <D-w> <Esc>:BufferClose<CR>
+" nnoremap <D-&> :BufferGoto 1<CR>
+" nnoremap <D-é> :BufferGoto 2<CR>
+" nnoremap <D-"> :BufferGoto 3<CR>
+" nnoremap <D-'> :BufferGoto 4<CR>
+" nnoremap <D-(> :BufferGoto 5<CR>
 nnoremap <Leader>fr :Telescope resume<CR>
 nnoremap <silent> <leader>gg :LazyGit<CR>
 nnoremap QQ :qa!<CR>
 nnoremap QS :wqa!<CR>
-nnoremap <Leader>rr <cmd>TroubleToggle lsp_references<CR>
+nnoremap <Leader>rr <cmd>Glance references<CR>
 nmap <Leader>r :lua vim.lsp.buf.rename()<CR>
 nmap <Leader>e :lua vim.lsp.buf.format()<CR>
 autocmd BufWritePre *.tsx,*.ts :EslintFixAll
@@ -47,3 +40,5 @@ nmap <c-t> :ToggleTermToggleAll<CR>
 nnoremap <S-Left> :BufferMovePrevious<CR>
 nnoremap <S-Right> :BufferMoveNext<CR>
 nnoremap <D-s-t> :BufferRestore<CR>
+inoremap <C-^> ^
+
