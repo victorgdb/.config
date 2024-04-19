@@ -95,6 +95,7 @@ local harpoon = require("harpoon")
 harpoon:setup()
 -- REQUIRED
 
+
 vim.keymap.set("n", "<D-a>", function() harpoon:list():add() end)
 vim.keymap.set("n", "<D-e>", function() harpoon.ui:toggle_quick_menu(harpoon:list()) end)
 
