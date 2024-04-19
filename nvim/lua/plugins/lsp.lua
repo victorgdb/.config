@@ -21,6 +21,9 @@ return {
       local lspconfig = require 'lspconfig'
       lspconfig.tsserver.setup {}
       lspconfig.eslint.setup {}
+      lspconfig.jsonls.setup {
+	      tabSize=110
+      }
       lspconfig.tailwindcss.setup {}
     end,
   },
@@ -59,10 +62,10 @@ return {
           ['<CR>'] = cmp.mapping.confirm { select = true },
         },
         sources = cmp.config.sources {
-          { name = 'nvim_lsp' },
-          { name = 'vsnip' },
-          { name = 'buffer' },
           { name = 'nvim_lsp_signature_help' },
+          { name = 'vsnip' },
+          { name = 'nvim_lsp' },
+          { name = 'buffer' },
         },
       }
     end,

@@ -17,8 +17,9 @@ end
 vim.opt.rtp:prepend(lazypath)
 require('lazy').setup 'plugins'
 vim.g.db_adapter_bigquery_region = 'kaya'
--- vim.cmd.colorscheme 'rose-pine-moon'
-vim.cmd.colorscheme 'ayu'
+-- vim.cmd.colorscheme 'kanagawa-dragon'
+vim.cmd.colorscheme 'rose-pine-moon'
+-- vim.cmd.colorscheme 'ayu'
 -- vim.cmd.colorscheme 'onenord'
 -- vim.cmd 'hi IlluminatedWordRead guibg=#525252'
 vim.api.nvim_set_hl(0, 'IlluminatedWordRead', { link = 'Visual' })
@@ -28,7 +29,6 @@ vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(
     border = _border
   }
 )
-
 vim.diagnostic.config {     
     float = { border = "rounded" }, 
 }
@@ -50,7 +50,7 @@ vim.api.nvim_create_autocmd('LspAttach', {
     -- See `:help vim.lsp.*` for documentation on any of the below functions
     local opts = { buffer = ev.buf }
     vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, opts)
-    vim.keymap.set('n', 'gd', vim.lsp.buf.definition, opts)
+   -- vim.keymap.set('n', 'gd', vim.lsp.buf.definition, opts)
     vim.keymap.set('n', 'K', vim.lsp.buf.hover, opts)
     vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, opts)
     -- vim.keymap.set('n', '<C-k>', vim.lsp.buf.signature_help, opts)
@@ -95,14 +95,18 @@ local harpoon = require("harpoon")
 harpoon:setup()
 -- REQUIRED
 
-vim.keymap.set("n", "<C-a>", function() harpoon:list():add() end)
-vim.keymap.set("n", "<C-e>", function() harpoon.ui:toggle_quick_menu(harpoon:list()) end)
+vim.keymap.set("n", "<D-a>", function() harpoon:list():add() end)
+vim.keymap.set("n", "<D-e>", function() harpoon.ui:toggle_quick_menu(harpoon:list()) end)
 
 vim.keymap.set("n", "<D-&>", function() harpoon:list():select(1) end)
 vim.keymap.set("n", "<D-é>", function() harpoon:list():select(2) end)
 vim.keymap.set("n", "<D-\">", function() harpoon:list():select(3) end)
 vim.keymap.set("n", "<D-'>", function() harpoon:list():select(4) end)
-
+vim.keymap.set("n", "<D-(>", function() harpoon:list():select(5) end)
+vim.keymap.set("n", "<D-§>", function() harpoon:list():select(6) end)
+vim.keymap.set("n", "<D-è>", function() harpoon:list():select(7) end)
+vim.keymap.set("n", "<D-!>", function() harpoon:list():select(8) end)
+vim.keymap.set("n", "<D-ç>", function() harpoon:list():select(9) end)
 -- Toggle previous & next buffers stored within Harpoon list
 vim.keymap.set("n", "<C-S-P>", function() harpoon:list():prev() end)
 vim.keymap.set("n", "<C-S-N>", function() harpoon:list():next() end)

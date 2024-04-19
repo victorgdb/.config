@@ -1,6 +1,9 @@
 return {
   { 'rose-pine/neovim', name = 'rose-pine' },
   -- 'mhartington/oceanic-next',
+  { 'EdenEast/nightfox.nvim' },
+  { 'rebelot/kanagawa.nvim' },
+{'sainnhe/everforest'},
   {
     'Shatur/neovim-ayu',
     config = function()
