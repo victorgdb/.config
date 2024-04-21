@@ -11,7 +11,6 @@ ctrl + cmd - 0x16 : yabai -m window --space 6
 ctrl + cmd - 0x1A : yabai -m window --space 7
 ctrl + cmd - 0x1C : yabai -m window --space 8
 ctrl + cmd - 0x19 : yabai -m window --space 9
-
 cmd + ctrl - f : yabai -m window --grid 1:1:0:0:0:0
 cmd + lshift - right : yabai -m window --grid 1:2:1:0:1:1
 cmd + lshift - left : yabai -m window --grid 1:2:0:0:1:1
@@ -20,12 +19,13 @@ cmd + ctrl - h : yabai -m window --focus west
 cmd + ctrl - j : yabai -m window --focus south
 cmd + ctrl - k : yabai -m window --focus north
 cmd + ctrl - l : yabai -m window --focus east
-# move focus
-cmd - left : yabai -m window --focus west
-cmd - down : yabai -m window --focus south
-cmd - up : yabai -m window --focus north
-cmd - right : yabai -m window --focus east
 
+
+# resize
+cmd + lshift - l : yabai -m window --resize left:20:0
+cmd + lshift - h : yabai -m window --resize left:-20:0
+cmd + lshift - j : yabai -m window --resize top:0:20
+cmd + lshift - k : yabai -m window --resize top:0:-20
 # move windows
 cmd + ctrl - left : yabai -m window --warp west
 cmd + ctrl - down : yabai -m window --warp south

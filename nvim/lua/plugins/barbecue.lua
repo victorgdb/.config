@@ -1,3 +1,4 @@
+-- context bar above window
 return {
   'utilyre/barbecue.nvim',
   name = 'barbecue',

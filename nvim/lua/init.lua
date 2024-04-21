@@ -23,20 +23,16 @@ vim.cmd.colorscheme 'rose-pine-moon'
 -- vim.cmd.colorscheme 'onenord'
 -- vim.cmd 'hi IlluminatedWordRead guibg=#525252'
 vim.api.nvim_set_hl(0, 'IlluminatedWordRead', { link = 'Visual' })
-local _border = "single"
-vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(
-  vim.lsp.handlers.hover, {
-    border = _border
-  }
-)
-vim.diagnostic.config {     
-    float = { border = "rounded" }, 
+local _border = 'single'
+vim.lsp.handlers['textDocument/hover'] = vim.lsp.with(vim.lsp.handlers.hover, {
+  border = _border,
+})
+vim.diagnostic.config {
+  float = { border = 'rounded' },
 }
-vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(
-  vim.lsp.handlers.signature_help, {
-    border = _border
-  }
-)
+vim.lsp.handlers['textDocument/signatureHelp'] = vim.lsp.with(vim.lsp.handlers.signature_help, {
+  border = _border,
+})
 
 vim.opt.ignorecase = true -- Make searches case insensitive
 vim.opt.smartcase = true -- Make searches case sensitive if there's an uppercase letter in the search
@@ -49,6 +45,7 @@ vim.api.nvim_create_autocmd('LspAttach', {
     -- Buffer local mappings.
     -- See `:help vim.lsp.*` for documentation on any of the below functions
     local opts = { buffer = ev.buf }
+    vim.keymap.set('n', 'gd', vim.lsp.buf.definition, opts)
     vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, opts)
     vim.keymap.set('n', 'K', vim.lsp.buf.hover, opts)
     vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, opts)
@@ -85,27 +82,51 @@ vim.cmd [[
 	ToggleTerm2
 	ToggleTermToggleAll
 	 ]]
-	 
 
-local harpoon = require("harpoon")
+local harpoon = require 'harpoon'
 
 -- REQUIRED
 harpoon:setup()
 -- REQUIRED
 
+vim.keymap.set('n', '<D-a>', function()
+  harpoon:list():add()
+end)
+vim.keymap.set('n', '<D-e>', function()
+  harpoon.ui:toggle_quick_menu(harpoon:list())
+end)
 
-vim.keymap.set("n", "<D-a>", function() harpoon:list():add() end)
-vim.keymap.set("n", "<D-e>", function() harpoon.ui:toggle_quick_menu(harpoon:list()) end)
-
-vim.keymap.set("n", "<D-&>", function() harpoon:list():select(1) end)
-vim.keymap.set("n", "<D-é>", function() harpoon:list():select(2) end)
-vim.keymap.set("n", "<D-\">", function() harpoon:list():select(3) end)
-vim.keymap.set("n", "<D-'>", function() harpoon:list():select(4) end)
-vim.keymap.set("n", "<D-(>", function() harpoon:list():select(5) end)
-vim.keymap.set("n", "<D-§>", function() harpoon:list():select(6) end)
-vim.keymap.set("n", "<D-è>", function() harpoon:list():select(7) end)
-vim.keymap.set("n", "<D-!>", function() harpoon:list():select(8) end)
-vim.keymap.set("n", "<D-ç>", function() harpoon:list():select(9) end)
+vim.keymap.set('n', '<D-&>', function()
+  harpoon:list():select(1)
+end)
+vim.keymap.set('n', '<D-é>', function()
+  harpoon:list():select(2)
+end)
+vim.keymap.set('n', '<D-">', function()
+  harpoon:list():select(3)
+end)
+vim.keymap.set('n', "<D-'>", function()
+  harpoon:list():select(4)
+end)
+vim.keymap.set('n', '<D-(>', function()
+  harpoon:list():select(5)
+end)
+vim.keymap.set('n', '<D-§>', function()
+  harpoon:list():select(6)
+end)
+vim.keymap.set('n', '<D-è>', function()
+  harpoon:list():select(7)
+end)
+vim.keymap.set('n', '<D-!>', function()
+  harpoon:list():select(8)
+end)
+vim.keymap.set('n', '<D-ç>', function()
+  harpoon:list():select(9)
+end)
 -- Toggle previous & next buffers stored within Harpoon list
-vim.keymap.set("n", "<C-S-P>", function() harpoon:list():prev() end)
-vim.keymap.set("n", "<C-S-N>", function() harpoon:list():next() end)
+vim.keymap.set('n', '<C-S-P>', function()
+  harpoon:list():prev()
+end)
+vim.keymap.set('n', '<C-S-N>', function()
+  harpoon:list():next()
+end)

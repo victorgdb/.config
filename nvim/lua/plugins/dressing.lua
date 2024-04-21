@@ -1,3 +1,4 @@
+-- Better UI tool
 return {
   'stevearc/dressing.nvim',
   opts = {},

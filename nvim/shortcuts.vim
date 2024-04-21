@@ -20,7 +20,7 @@ nnoremap <silent> <leader>gg :LazyGit<CR>
 nnoremap QQ :qa!<CR>
 nnoremap ZA ZQ
 nnoremap <Leader>rr <cmd>Glance references<CR>
-nnoremap gd <cmd>Glance definitions<CR>
+nnoremap gd <cmd>vim.lsp.buf.definition<CR>
 nnoremap gi <cmd>Glance implementation<CR>
 nnoremap <Leader>jf :Telescope jsonfly<cr> 
 
