@@ -22,7 +22,7 @@ nnoremap QQ :qa!<CR>
 nnoremap ZA ZQ
 nnoremap gd <cmd>vim.lsp.buf.definition<CR>
 nnoremap gi <cmd>Glance implementation<CR>
-nnoremap <Leader>rr <CMD>Glance references<CR>
+nnoremap gr <CMD>Glance references<CR>
 nnoremap <Leader>jf :Telescope jsonfly<cr> 
 
 nmap <Leader>r :lua vim.lsp.buf.rename()<CR>
