@@ -9,6 +9,7 @@ highlight FloatBorder guibg=none
 highlight TelescopeBorder guibg=none
 highlight NormalFloat guibg=none 
 syntax enable
-
-autocmd VimEnter * !kitty @ set-spacing padding=0
-autocmd VimLeave * !kitty @ set-spacing padding=default
+highlight Identifier guifg=#3e8fb0 
+highlight typescriptIdentifierName guifg=#3e8fb0 
+autocmd VimEnter * :silent !kitty @ set-spacing padding=0
+autocmd VimLeave * :silent !kitty @ set-spacing padding=default

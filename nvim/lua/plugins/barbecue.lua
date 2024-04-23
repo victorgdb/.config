@@ -8,6 +8,11 @@ return {
     'nvim-tree/nvim-web-devicons', -- optional dependency
   },
   opts = {
-    -- configurations go here
+    theme = {
+      basename = {
+        bold = true,
+        fg = '#f6c177',
+      },
+    },
   },
 }

@@ -1,5 +1,6 @@
 let mapleader = ' '
 nnoremap <D-p> :Telescope smart_open<CR>
+ino <D-p> <ESC>:Telescope smart_open<CR>
 nmap <Leader>ff :Telescope live_grep<CR>
 nmap <c-f> :Neotree toggle<CR>
 nmap <Leader>fj :%!jq '.'<CR>
@@ -11,7 +12,7 @@ nnoremap <silent> <c-j> :wincmd j<CR>
 nnoremap <silent> <c-k> :wincmd k<CR>
 " nnoremap <D-r> :Navbuddy<CR>
 nnoremap <D-r> :Telescope aerial<CR>
-inoremap <D-s> <C-\><C-o>:w<CR>
+inoremap <D-s> <C-\><C-o>:w<CR><ESC>
 nnoremap <D-s> :w<CR>
 nnoremap <D-t> :tabnew<CR>
 nmap gb :Gitsigns blame_line<CR>
@@ -19,9 +20,9 @@ nnoremap <Leader>fr :Telescope resume<CR>
 nnoremap <silent> <leader>gg :LazyGit<CR>
 nnoremap QQ :qa!<CR>
 nnoremap ZA ZQ
-nnoremap <Leader>rr <cmd>Glance references<CR>
 nnoremap gd <cmd>vim.lsp.buf.definition<CR>
 nnoremap gi <cmd>Glance implementation<CR>
+nnoremap <Leader>rr <CMD>Glance references<CR>
 nnoremap <Leader>jf :Telescope jsonfly<cr> 
 
 nmap <Leader>r :lua vim.lsp.buf.rename()<CR>
@@ -32,9 +33,7 @@ nnoremap <leader>dd <cmd>DBUIToggle<cr>
 autocmd FileType sql,mysql,plsql lua require('cmp').setup.buffer({ sources = {{ name = 'vim-dadbod-completion' }} })
 " nmap <Leader>gf :DiffviewFileHistory %<CR>
 nmap <Leader>c :noh<cr>
-nmap <Leader>i :TSToolsAddMissingImports<CR>
 nmap <Leader>p :Oil<CR>
-nmap <c-t> :ToggleTermToggleAll<CR>
 nnoremap <S-Left> :BufferMovePrevious<CR>
 nnoremap <S-Right> :BufferMoveNext<CR>
 nnoremap <D-s-t> :BufferRestore<CR>
@@ -48,3 +47,9 @@ snoremap <silent> <S-Tab> <cmd>lua require('luasnip').jump(-1)<Cr>
 " For changing choices in choiceNodes (not strictly necessary for a basic setup).
 imap <silent><expr> <C-E> luasnip#choice_active() ? '<Plug>luasnip-next-choice' : '<C-E>'
 smap <silent><expr> <C-E> luasnip#choice_active() ? '<Plug>luasnip-next-choice' : '<C-E>'
+
+" Noice
+nnoremap <Leader>nh :Noice history<CR>
+nnoremap <Leader>nl :Noice last<CR>
+nnoremap <Leader>ne :Noice errors<CR>
+

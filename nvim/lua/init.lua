@@ -57,7 +57,6 @@ vim.api.nvim_create_autocmd('LspAttach', {
     vim.keymap.set('n', '<space>D', vim.lsp.buf.type_definition, opts)
     vim.keymap.set('n', '<space>rn', vim.lsp.buf.rename, opts)
     vim.keymap.set({ 'n', 'v' }, '<space>ca', vim.lsp.buf.code_action, opts)
-    vim.keymap.set('n', 'gr', vim.lsp.buf.references, opts)
     vim.keymap.set('n', '<space>f', function()
       vim.lsp.buf.format { async = true }
     end, opts)
@@ -73,15 +72,7 @@ function _G.set_terminal_keymaps()
   vim.keymap.set('t', '<C-l>', [[<Cmd>wincmd l<CR>]], opts)
   vim.keymap.set('t', '<C-w>', [[<C-\><C-n><C-w>]], opts)
 end
-vim.cmd 'autocmd! TermOpen term://*toggleterm#* lua set_terminal_keymaps()'
-vim.api.nvim_set_keymap('n', '<leader>ql', [[<cmd>lua require("persistence").load({ last = true })<cr>]], {})
-vim.api.nvim_set_keymap('n', '<leader>qs', [[<cmd>lua require("persistence").load()<cr>]], {})
 
-vim.cmd [[
-	ToggleTerm
-	ToggleTerm2
-	ToggleTermToggleAll
-	 ]]
 
 local harpoon = require 'harpoon'
 
@@ -89,44 +80,53 @@ local harpoon = require 'harpoon'
 harpoon:setup()
 -- REQUIRED
 
-vim.keymap.set('n', '<D-a>', function()
+vim.keymap.set({'n', 'i'}, '<D-a>', function()
   harpoon:list():add()
 end)
-vim.keymap.set('n', '<D-e>', function()
+vim.keymap.set({'n', 'i'}, '<D-e>', function()
   harpoon.ui:toggle_quick_menu(harpoon:list())
 end)
 
-vim.keymap.set('n', '<D-&>', function()
+vim.keymap.set({'n', 'i'}, '<D-&>', function()
   harpoon:list():select(1)
+  vim.api.nvim_input('<Esc>')
 end)
-vim.keymap.set('n', '<D-é>', function()
+vim.keymap.set({'n', 'i'}, '<D-é>', function()
   harpoon:list():select(2)
+  vim.api.nvim_input('<Esc>')
 end)
-vim.keymap.set('n', '<D-">', function()
+vim.keymap.set({'n', 'i'}, '<D-">', function()
   harpoon:list():select(3)
+  vim.api.nvim_input('<Esc>')
 end)
-vim.keymap.set('n', "<D-'>", function()
+vim.keymap.set({'n', 'i'}, "<D-'>", function()
   harpoon:list():select(4)
+  vim.api.nvim_input('<Esc>')
 end)
-vim.keymap.set('n', '<D-(>', function()
+vim.keymap.set({'n', 'i'}, '<D-(>', function()
   harpoon:list():select(5)
+  vim.api.nvim_input('<Esc>')
 end)
-vim.keymap.set('n', '<D-§>', function()
+vim.keymap.set({'n', 'i'}, '<D-§>', function()
   harpoon:list():select(6)
+  vim.api.nvim_input('<Esc>')
 end)
-vim.keymap.set('n', '<D-è>', function()
+vim.keymap.set({'n', 'i'}, '<D-è>', function()
   harpoon:list():select(7)
+  vim.api.nvim_input('<Esc>')
 end)
-vim.keymap.set('n', '<D-!>', function()
+vim.keymap.set({'n', 'i'}, '<D-!>', function()
   harpoon:list():select(8)
+  vim.api.nvim_input('<Esc>')
 end)
-vim.keymap.set('n', '<D-ç>', function()
+vim.keymap.set({'n', 'i'}, '<D-ç>', function()
   harpoon:list():select(9)
+  vim.api.nvim_input('<Esc>')
 end)
 -- Toggle previous & next buffers stored within Harpoon list
-vim.keymap.set('n', '<C-S-P>', function()
+vim.keymap.set({'n', 'i'}, '<C-S-P>', function()
   harpoon:list():prev()
 end)
-vim.keymap.set('n', '<C-S-N>', function()
+vim.keymap.set({'n', 'i'}, '<C-S-N>', function()
   harpoon:list():next()
 end)
