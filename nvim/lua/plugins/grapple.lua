@@ -1,7 +1,7 @@
 return {
     "cbochs/grapple.nvim",
     opts = {
-        scope = "git", -- also try out "git_branch"
+        scope = "git_branch", -- also try out "git_branch"
     },
     keys = {
         { "<D-a>", "<cmd>Grapple toggle<cr>", desc = "Tag a file" },
@@ -11,7 +11,7 @@ return {
         { "<D-é>", "<cmd>Grapple select index=2<cr>", desc = "Select second tag" },
         { "<D-\">", "<cmd>Grapple select index=3<cr>", desc = "Select third tag" },
         { "<D-'>", "<cmd>Grapple select index=4<cr>", desc = "Select fourth tag" },
-	{ "<D-(", "<cmd>Grapple select index=5<cr>", desc = "Select fifth tag" },
+	{ "<D-(>", "<cmd>Grapple select index=5<cr>", desc = "Select fifth tag" },
 	{ "<D-§>", "<cmd>Grapple select index=6<cr>", desc = "Select sixth tag" },
 	{ "<D-è>", "<cmd>Grapple select index=7<cr>", desc = "Select seventh tag" },
 	{ "<D-!", "<cmd>Grapple select index=8<cr>", desc = "Select eighth tag" },
