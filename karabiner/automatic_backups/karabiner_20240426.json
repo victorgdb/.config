@@ -21,14 +21,6 @@
                         "description": "^ & ` works well",
                         "manipulators": [
                             {
-                                "conditions": [
-                                    {
-                                        "bundle_identifiers": [
-                                            "^net.kovidgoyal.kitty$"
-                                        ],
-                                        "type": "frontmost_application_if"
-                                    }
-                                ],
                                 "from": {
                                     "key_code": "backslash",
                                     "modifiers": {
@@ -49,14 +41,6 @@
                                 "type": "basic"
                             },
                             {
-                                "conditions": [
-                                    {
-                                        "bundle_identifiers": [
-                                            "^net.kovidgoyal.kitty$"
-                                        ],
-                                        "type": "frontmost_application_if"
-                                    }
-                                ],
                                 "from": {
                                     "key_code": "open_bracket",
                                     "modifiers": {
