@@ -17,8 +17,6 @@ return {
 	{ "<D-!", "<cmd>Grapple select index=8<cr>", desc = "Select eighth tag" },
 	{ "<D-ç>", "<cmd>Grapple select index=9<cr>", desc = "Select ninth tag" },
 	{ "<D-à>", "<cmd>Grapple select index=10<cr>", desc = "Select tenth tag" },
-
-        { "<c-s-n>", "<cmd>Grapple cycle_tags next<cr>", desc = "Go to next tag" },
-        { "<c-s-p>", "<cmd>Grapple cycle_tags prev<cr>", desc = "Go to previous tag" },
+	{ "<D-s-p>", "<cmd>Telescope grapple tags<cr>" },
     },
 }
