@@ -15,6 +15,7 @@ nnoremap <D-r> :Telescope aerial<CR>
 inoremap <D-s> <C-\><C-o>:w<CR><ESC>
 nnoremap <D-s> :w<CR>
 nnoremap <D-t> :tabnew<CR>
+nnoremap <silent><leader>h :lua require('harpeek').toggle()<CR>
 nmap gb :Gitsigns blame_line<CR>
 nnoremap <Leader>fr :Telescope resume<CR>
 nnoremap <silent> <leader>gg :LazyGit<CR>
@@ -24,6 +25,9 @@ nnoremap gd <cmd>vim.lsp.buf.definition<CR>
 nnoremap gi <cmd>Glance implementation<CR>
 nnoremap gr <CMD>Glance references<CR>
 nnoremap <Leader>jf :Telescope jsonfly<cr> 
+
+nnoremap cce <cmd>:CopilotChatExplain<cr>
+vnoremap cce <cmd>:CopilotChatExplain<cr>
 
 nmap <Leader>r :lua vim.lsp.buf.rename()<CR>
 nmap <Leader>e :lua vim.lsp.buf.format()<CR>
