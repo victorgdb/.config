@@ -21,6 +21,7 @@ return {
       local lspconfig = require 'lspconfig'
       lspconfig.tsserver.setup {}
       lspconfig.eslint.setup {}
+      lspconfig.yamlls.setup {}
       lspconfig.jsonls.setup {
         tabSize = 110,
       }

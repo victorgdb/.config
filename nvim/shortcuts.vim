@@ -25,7 +25,8 @@ nnoremap gd <cmd>vim.lsp.buf.definition<CR>
 nnoremap gi <cmd>Glance implementation<CR>
 nnoremap gr <CMD>Glance references<CR>
 nnoremap <Leader>jf :Telescope jsonfly<cr> 
-
+nnoremap <Leader>db :DapToggleBreakpoint<CR>
+nnoremap <Leader>dc :DapContinue<CR>
 nnoremap cce <cmd>:CopilotChatExplain<cr>
 vnoremap cce <cmd>:CopilotChatExplain<cr>
 
