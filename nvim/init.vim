@@ -13,3 +13,8 @@ highlight Identifier guifg=#3e8fb0
 highlight typescriptIdentifierName guifg=#3e8fb0 
 autocmd VimEnter * :silent !kitty @ set-spacing padding=0
 autocmd VimLeave * :silent !kitty @ set-spacing padding=default
+
+augroup markdown
+  au FileType markdown setlocal foldlevel=99
+  au FileType markdown setlocal conceallevel=2
+augroup END

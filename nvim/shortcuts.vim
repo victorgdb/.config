@@ -1,8 +1,10 @@
 let mapleader = ' '
+let maplocalleader = ","
 nnoremap <D-p> :Telescope smart_open<CR>
 ino <D-p> <ESC>:Telescope smart_open<CR>
 nmap <Leader>ff :Telescope live_grep<CR>
 nmap <c-f> :Neotree toggle<CR>
+nmap <c-g> :LazyGit<CR>
 nmap <Leader>fj :%!jq '.'<CR>
 nmap <Leader>zz :ZenMode<CR>
 nmap gf :lua vim.diagnostic.open_float()<CR>
@@ -15,12 +17,14 @@ nnoremap <D-r> :Telescope aerial<CR>
 inoremap <D-s> <C-\><C-o>:w<CR><ESC>
 nnoremap <D-s> :w<CR>
 nnoremap <D-t> :tabnew<CR>
+nnoremap <C-t> :FloatermToggle<CR>
 nnoremap <silent><leader>h :lua require('harpeek').toggle()<CR>
 nmap gb :Gitsigns blame_line<CR>
 nnoremap <Leader>fr :Telescope resume<CR>
 nnoremap <silent> <leader>gg :LazyGit<CR>
 nnoremap QQ :qa!<CR>
 nnoremap ZA ZQ
+nnoremap AA ZQ
 nnoremap gd <cmd>vim.lsp.buf.definition<CR>
 nnoremap gi <cmd>Glance implementation<CR>
 nnoremap gr <CMD>Glance references<CR>
@@ -58,3 +62,5 @@ nnoremap <Leader>nh :Noice history<CR>
 nnoremap <Leader>nl :Noice last<CR>
 nnoremap <Leader>ne :Noice errors<CR>
 
+"Neorg
+nmap <leader>nj :Neorg journal today<CR>
