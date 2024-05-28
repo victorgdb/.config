@@ -3,7 +3,8 @@ let maplocalleader = ","
 nnoremap <D-p> :Telescope smart_open<CR>
 ino <D-p> <ESC>:Telescope smart_open<CR>
 nmap <Leader>ff :Telescope live_grep<CR>
-nmap <c-f> :Neotree toggle<CR>
+" nmap <c-f> :Neotree toggle<CR>
+nmap <c-f> :lua MiniFiles.open()<CR>
 nmap <c-g> :LazyGit<CR>
 nmap <Leader>fj :%!jq '.'<CR>
 nmap <Leader>zz :ZenMode<CR>
@@ -62,5 +63,7 @@ nnoremap <Leader>nh :Noice history<CR>
 nnoremap <Leader>nl :Noice last<CR>
 nnoremap <Leader>ne :Noice errors<CR>
 
+" Jest
+nmap <leader>jj :lua require("neotest").run.run()<CR>
 "Neorg
 nmap <leader>nj :Neorg journal today<CR>

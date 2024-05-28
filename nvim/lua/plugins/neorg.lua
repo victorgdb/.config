@@ -23,7 +23,7 @@ return {
           ['core.keybinds'] = {
             config = {
               hook = function(keybinds)
-		keybinds.remap_event("norg", "n", "<C-y>", "core.qol.todo_items.todo.task_cycle")
+                keybinds.remap_event('norg', 'n', '<C-y>', 'core.qol.todo_items.todo.task_cycle')
               end,
             },
           },
@@ -37,9 +37,6 @@ return {
           },
         },
       }
-
-      vim.wo.foldlevel = 99
-      vim.wo.conceallevel = 2
     end,
   },
 }

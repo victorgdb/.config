@@ -14,6 +14,11 @@ return {
           enabled = true,
         },
       },
+      window = {
+        mappings = {
+          ['<C-f>'] = 'close_window',
+        },
+      },
     }
   end,
 }

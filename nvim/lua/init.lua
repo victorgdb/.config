@@ -1,5 +1,10 @@
 vim.g.loaded_netrw = 1
 vim.g.loaded_netrwPlugin = 1
+-- vim.g.loaded_matchparen = 1 -- disable built-in MatchParen for macOSX
+
+vim.g.matchparen_timeout = 2
+vim.g.matchparen_insert_timeout = 2
+
 vim.opt.termguicolors = true
 vim.g.minimap_git_colors = 1
 vim.wo.relativenumber = true
