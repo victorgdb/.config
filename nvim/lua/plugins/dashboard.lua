@@ -27,6 +27,7 @@ return {
     require('dashboard').setup {
       theme = 'hyper',
       config = {
+	mru = { limit = 10, cwd_only = true },
 	header = header(),
         shortcut = {
           { desc = '󰊳 Update', group = '@property', action = 'Lazy update', key = 'u' },

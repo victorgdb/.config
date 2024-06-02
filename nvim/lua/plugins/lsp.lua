@@ -19,13 +19,26 @@ return {
     },
     config = function()
       local lspconfig = require 'lspconfig'
-      lspconfig.tsserver.setup {}
       lspconfig.eslint.setup {}
+      lspconfig.prismals.setup {}
+      lspconfig.tsserver.setup {
+        on_attach = function(client)
+          client.resolved_capabilities.document_formatting = false
+        end,
+      }
       lspconfig.yamlls.setup {}
       lspconfig.jsonls.setup {
         tabSize = 110,
       }
       lspconfig.tailwindcss.setup {}
+    end,
+  },
+  {
+    'williamboman/mason-lspconfig.nvim',
+    config = function()
+      require('mason-lspconfig').setup {
+        ensure_installed = { 'prismals', 'jsonls' },
+      }
     end,
   },
   {
@@ -49,6 +62,7 @@ return {
               return vim_item
             end,
           },
+	  format = require("tailwindcss-colorizer-cmp").formatter
         },
         mapping = cmp.mapping.preset.insert {
           ['<C-b>'] = cmp.mapping.scroll_docs(-4),
@@ -75,6 +89,15 @@ return {
           { name = 'nvim_lsp' },
           { name = 'buffer' },
         },
+      }
+    end,
+  },
+  {
+    'roobert/tailwindcss-colorizer-cmp.nvim',
+    -- optionally, override the default options:
+    config = function()
+      require('tailwindcss-colorizer-cmp').setup {
+        color_square_width = 2,
       }
     end,
   },

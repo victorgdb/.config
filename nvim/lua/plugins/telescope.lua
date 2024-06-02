@@ -24,7 +24,7 @@ return {
       table.insert(vimgrep_arguments, '!**/.git/*')
       require('telescope').load_extension 'aerial'
 
-      require("telescope").load_extension("grapple")
+      -- require("telescope").load_extension("grapple")
       require('telescope').load_extension 'jsonfly'
       require('telescope').setup {
         defaults = {
