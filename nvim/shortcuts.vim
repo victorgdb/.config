@@ -17,15 +17,27 @@ nnoremap <silent> <c-k> :wincmd k<CR>
 nnoremap <D-r> :Telescope aerial<CR>
 inoremap <D-s> <C-\><C-o>:w<CR><ESC>
 nnoremap <D-s> :w<CR>
-nnoremap <D-t> :tabnew<CR>
+" nmap <Leader>e :lua vim.lsp.buf.format({filter = function(client) return client.name ~= "tsserver" end})<CR>
 nnoremap <C-t> :FloatermToggle<CR>
 " nnoremap <silent><leader>h :lua require('harpeek').toggle()<CR>
 nmap gb :Gitsigns blame_line<CR>
 nnoremap <Leader>fr :Telescope resume<CR>
 nnoremap <silent> <leader>gg :LazyGit<CR>
 nnoremap QQ :qa!<CR>
+function! s:conditionally_map_jj()
+if &buftype == 'terminal'
+    let l:term_cmd = getbufvar(bufnr('%'), 'term_title', '')
+    if l:term_cmd !~ 'lazygit'
+      tnoremap <buffer> jj <C-\><C-n>
+    endif
+  endif
+endfunction
+
+augroup TerminalMappings
+  autocmd!
+  autocmd TermOpen * call s:conditionally_map_jj()
+augroup END ktnoremap <Esc> <C-\><C-n>
 nnoremap ZA ZQ
-nnoremap AA ZQ
 nnoremap gd <cmd>vim.lsp.buf.definition<CR>
 nnoremap gi <cmd>Glance implementation<CR>
 nnoremap gr <CMD>Glance references<CR>
@@ -36,12 +48,11 @@ nnoremap cce <cmd>:CopilotChatExplain<cr>
 vnoremap cce <cmd>:CopilotChatExplain<cr>
 
 nmap <Leader>r :lua vim.lsp.buf.rename()<CR>
-nmap <Leader>e :lua vim.lsp.buf.format()<CR>
 autocmd BufWritePre *.tsx,*.ts :EslintFixAll
 nnoremap <leader>xx <cmd>TroubleToggle<cr>
 nnoremap <leader>dd <cmd>DBUIToggle<cr>
 autocmd FileType sql,mysql,plsql lua require('cmp').setup.buffer({ sources = {{ name = 'vim-dadbod-completion' }} })
-nmap <Leader>c :noh<cr>
+nmap <Leader>cc :noh<cr>
 nmap <Leader>p :Oil<CR>
 nnoremap <S-Left> :BufferMovePrevious<CR>
 nnoremap <S-Right> :BufferMoveNext<CR>
@@ -67,15 +78,29 @@ nmap <leader>jj :lua require("neotest").run.run()<CR>
 "Neorg
 nmap <leader>nj :Neorg journal today<CR>
 " barbar
+nnoremap <D-t> :tabnew<CR>
+inoremap <D-t> <ESC>:tabnew<CR>
 nmap <silent><D-&> :BufferGoto 1<CR>
+imap <silent><D-&> <ESC>:BufferGoto 1<CR>
 nmap <silent><D-é> :BufferGoto 2<CR>
+imap <silent><D-é> <ESC>:BufferGoto 2<CR>
 nmap <silent><D-"> :BufferGoto 3<CR>
+imap <silent><D-"> <ESC>:BufferGoto 3<CR>
 nmap <silent><D-'> :BufferGoto 4<CR>
+imap <silent><D-'> <ESC>:BufferGoto 4<CR>
 nmap <silent><D-(> :BufferGoto 5<CR>
+imap <silent><D-(> <ESC>:BufferGoto 5<CR>
 nmap <silent><D-§> :BufferGoto 6<CR>
+imap <silent><D-§> <ESC>:BufferGoto 6<CR>
 nmap <silent><D-è> :BufferGoto 7<CR>
+imap <silent><D-è> <ESC>:BufferGoto 7<CR>
 nmap <silent><D-!> :BufferGoto 8<CR>
+imap <silent><D-!> <ESC>:BufferGoto 8<CR>
 nmap <silent><D-ç> :BufferGoto 9<CR>
+imap <silent><D-ç> <ESC>:BufferGoto 9<CR>
 nmap <silent><D-w> :BufferClose<CR>
+imap <silent><D-w> <ESC>:BufferClose<CR>
 nmap <leader>bh :BufferMovePrevious<CR>
 nmap <leader>bl :BufferMoveNext<CR>
+nmap <Leader>cb :BufferCloseAllButCurrent<cr>
+nmap <Leader>bc :BufferCloseAllButCurrent<cr>

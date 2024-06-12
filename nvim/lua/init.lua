@@ -1,7 +1,6 @@
 vim.g.loaded_netrw = 1
 vim.g.loaded_netrwPlugin = 1
 -- vim.g.loaded_matchparen = 1 -- disable built-in MatchParen for macOSX
-
 vim.g.matchparen_timeout = 2
 vim.g.matchparen_insert_timeout = 2
 
@@ -38,7 +37,6 @@ vim.diagnostic.config {
 vim.lsp.handlers['textDocument/signatureHelp'] = vim.lsp.with(vim.lsp.handlers.signature_help, {
   border = _border,
 })
-
 vim.opt.ignorecase = true -- Make searches case insensitive
 vim.opt.smartcase = true -- Make searches case sensitive if there's an uppercase letter in the search
 vim.api.nvim_create_autocmd('LspAttach', {

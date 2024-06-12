@@ -4,11 +4,9 @@ return {
     local global_note = require 'global-note'
 
     global_note.setup {
-      filename = function()
-        return os.date '%Y/%m/%d' .. '.norg' -- Use .norg extension
-      end,
-      directory = '~/notes/journal/', -- Adjust to your Neorg journal directory
-      title = "Today's Journal",
+      filename = 'todo.norg',
+      directory = '~/notes/', -- Adjust to your Neorg journal directory
+      title = "Todo",
       autosave = true,
     }
 

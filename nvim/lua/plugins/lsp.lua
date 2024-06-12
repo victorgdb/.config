@@ -37,7 +37,7 @@ return {
     'williamboman/mason-lspconfig.nvim',
     config = function()
       require('mason-lspconfig').setup {
-        ensure_installed = { 'prismals', 'jsonls' },
+        ensure_installed = { 'prismals', 'jsonls', 'sqlls' },
       }
     end,
   },
@@ -62,7 +62,7 @@ return {
               return vim_item
             end,
           },
-	  format = require("tailwindcss-colorizer-cmp").formatter
+          format = require('tailwindcss-colorizer-cmp').formatter,
         },
         mapping = cmp.mapping.preset.insert {
           ['<C-b>'] = cmp.mapping.scroll_docs(-4),
