@@ -1,3 +1,13 @@
+local lsp_formatting = function(bufnr)
+  vim.lsp.buf.format {
+    async = false,
+    timeout_ms = 10000,
+    filter = function(client)
+      return client.name == 'null-ls'
+    end,
+    bufnr = bufnr,
+  }
+end
 return {
   {
     'neovim/nvim-lspconfig',
@@ -18,12 +28,24 @@ return {
       },
     },
     config = function()
+      local on_attach = function(client, bufnr)
+        if client.supports_method 'textDocument/formatting' then
+          vim.api.nvim_clear_autocmds { group = augroup, buffer = bufnr }
+          vim.api.nvim_create_autocmd('BufWritePre', {
+            group = augroup,
+            buffer = bufnr,
+            callback = function()
+              lsp_formatting(bufnr)
+            end,
+          })
+        end
+      end
       local lspconfig = require 'lspconfig'
-      lspconfig.eslint.setup {}
       lspconfig.prismals.setup {}
       lspconfig.tsserver.setup {
-        on_attach = function(client)
+        on_attach = function(client, bufnr)
           client.resolved_capabilities.document_formatting = false
+          on_attach(client, bufnr)
         end,
       }
       lspconfig.yamlls.setup {}
@@ -103,13 +125,31 @@ return {
   },
   {
     'nvimtools/none-ls.nvim',
+    dependencies = {
+      'nvimtools/none-ls-extras.nvim',
+    },
     config = function()
       local null_ls = require 'null-ls'
 
       null_ls.setup {
+        on_attach = function(client, bufnr)
+          if client.supports_method 'textDocument/formatting' then
+            vim.api.nvim_clear_autocmds { group = augroup, buffer = bufnr }
+            vim.api.nvim_create_autocmd('BufWritePre', {
+              group = augroup,
+              buffer = bufnr,
+              callback = function()
+                lsp_formatting(bufnr)
+              end,
+            })
+          end
+        end,
         sources = {
           null_ls.builtins.formatting.stylua,
           null_ls.builtins.formatting.pg_format,
+          require 'none-ls.code_actions.eslint_d',
+          require 'none-ls.diagnostics.eslint_d',
+          require 'none-ls.formatting.eslint_d',
           -- null_ls.builtins.formatting.sqlfluff.with {
           --   extra_args = { '--dialect', 'bigquery' }, -- change to your dialect
           -- },

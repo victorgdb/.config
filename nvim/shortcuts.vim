@@ -17,7 +17,7 @@ nnoremap <silent> <c-k> :wincmd k<CR>
 nnoremap <D-r> :Telescope aerial<CR>
 inoremap <D-s> <C-\><C-o>:w<CR><ESC>
 nnoremap <D-s> :w<CR>
-" nmap <Leader>e :lua vim.lsp.buf.format({filter = function(client) return client.name ~= "tsserver" end})<CR>
+nmap <Leader>e :lua vim.lsp.buf.format({filter = function(client) return client.name ~= "tsserver" end})<CR>
 nnoremap <C-t> :FloatermToggle<CR>
 " nnoremap <silent><leader>h :lua require('harpeek').toggle()<CR>
 nmap gb :Gitsigns blame_line<CR>
@@ -48,7 +48,6 @@ nnoremap cce <cmd>:CopilotChatExplain<cr>
 vnoremap cce <cmd>:CopilotChatExplain<cr>
 
 nmap <Leader>r :lua vim.lsp.buf.rename()<CR>
-autocmd BufWritePre *.tsx,*.ts :EslintFixAll
 nnoremap <leader>xx <cmd>TroubleToggle<cr>
 nnoremap <leader>dd <cmd>DBUIToggle<cr>
 autocmd FileType sql,mysql,plsql lua require('cmp').setup.buffer({ sources = {{ name = 'vim-dadbod-completion' }} })
