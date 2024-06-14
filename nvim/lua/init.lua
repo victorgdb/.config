@@ -62,3 +62,39 @@ vim.api.nvim_create_autocmd('LspAttach', {
     end, opts)
   end,
 })
+function Grapple_files()
+  local contents = {}
+  local tags = require('grapple').tags()
+  local selected_index = require('grapple').name_or_index()
+  local current_file_path = vim.fn.fnamemodify(vim.fn.expand '%:p', ':.')
+
+  for index, tag in ipairs(tags) do
+    local grapple_file_path = tag.path
+    local file_name = grapple_file_path == '' and '(empty)' or vim.fn.fnamemodify(grapple_file_path, ':t')
+
+    if current_file_path == grapple_file_path then
+      table.insert(contents, string.format('%%#GrappleActive# %s. %s ', index, file_name))
+    elseif index == selected_index then
+      table.insert(contents, string.format('%%#GrappleSelected# %s. %s ', index, file_name))
+    else
+      table.insert(contents, string.format('%%#GrappleInactive# %s. %s ', index, file_name))
+    end
+  end
+
+  table.insert(contents, '%#GrappleInactive#')
+  return table.concat(contents, ' ')
+end
+
+-- Set up autocommand to update the tabline with grapple tags
+vim.opt.showtabline = 2
+vim.api.nvim_create_autocmd({ 'BufEnter', 'BufAdd', 'User' }, {
+  callback = function(ev)
+    vim.o.tabline = Grapple_files()
+  end,
+})
+
+vim.cmd [[
+  highlight GrappleActive guifg=#e0def4 guibg=#232136
+  highlight GrappleSelected guifg=#e0def4 guibg=#393552
+  highlight GrappleInactive guifg=#908caa guibg=#2a273f
+]]

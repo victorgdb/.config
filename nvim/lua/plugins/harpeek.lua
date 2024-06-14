@@ -1,6 +1,6 @@
 return {
-    -- 'WolfeCub/harpeek.nvim',
-    -- config = function()
-    --     require('harpeek').setup()
-    -- end
+  'WolfeCub/harpeek.nvim',
+  config = function()
+    require('harpeek').setup()
+  end,
 }

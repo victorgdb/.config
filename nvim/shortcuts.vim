@@ -79,27 +79,3 @@ nmap <leader>nj :Neorg journal today<CR>
 " barbar
 nnoremap <D-t> :tabnew<CR>
 inoremap <D-t> <ESC>:tabnew<CR>
-nmap <silent><D-&> :BufferGoto 1<CR>
-imap <silent><D-&> <ESC>:BufferGoto 1<CR>
-nmap <silent><D-é> :BufferGoto 2<CR>
-imap <silent><D-é> <ESC>:BufferGoto 2<CR>
-nmap <silent><D-"> :BufferGoto 3<CR>
-imap <silent><D-"> <ESC>:BufferGoto 3<CR>
-nmap <silent><D-'> :BufferGoto 4<CR>
-imap <silent><D-'> <ESC>:BufferGoto 4<CR>
-nmap <silent><D-(> :BufferGoto 5<CR>
-imap <silent><D-(> <ESC>:BufferGoto 5<CR>
-nmap <silent><D-§> :BufferGoto 6<CR>
-imap <silent><D-§> <ESC>:BufferGoto 6<CR>
-nmap <silent><D-è> :BufferGoto 7<CR>
-imap <silent><D-è> <ESC>:BufferGoto 7<CR>
-nmap <silent><D-!> :BufferGoto 8<CR>
-imap <silent><D-!> <ESC>:BufferGoto 8<CR>
-nmap <silent><D-ç> :BufferGoto 9<CR>
-imap <silent><D-ç> <ESC>:BufferGoto 9<CR>
-nmap <silent><D-w> :BufferClose<CR>
-imap <silent><D-w> <ESC>:BufferClose<CR>
-nmap <leader>bh :BufferMovePrevious<CR>
-nmap <leader>bl :BufferMoveNext<CR>
-nmap <Leader>cb :BufferCloseAllButCurrent<cr>
-nmap <Leader>bc :BufferCloseAllButCurrent<cr>
