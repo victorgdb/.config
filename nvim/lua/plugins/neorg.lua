@@ -6,13 +6,14 @@ return {
   },
   {
     'nvim-neorg/neorg',
-    dependencies = { 'luarocks.nvim' },
+    dependencies = { 'luarocks.nvim', 'nvim-neorg/neorg-telescope' },
     version = '*',
     config = function()
       require('neorg').setup {
         load = {
           ['core.defaults'] = {},
           ['core.qol.todo_items'] = {},
+          ['core.integrations.telescope'] = {},
           ['core.itero'] = {},
           ['core.completion'] = {
             config = {

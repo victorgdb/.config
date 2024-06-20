@@ -18,7 +18,7 @@ nnoremap <D-r> :Telescope aerial<CR>
 inoremap <D-s> <C-\><C-o>:w<CR><ESC>
 nnoremap <D-s> :w<CR>
 nmap <Leader>e :lua vim.lsp.buf.format({filter = function(client) return client.name ~= "tsserver" end})<CR>
-nnoremap <C-t> :FloatermToggle<CR>
+nnoremap <C-t> :ToggleTermToggleAll<CR>
 " nnoremap <silent><leader>h :lua require('harpeek').toggle()<CR>
 nmap gb :Gitsigns blame_line<CR>
 nnoremap <Leader>fr :Telescope resume<CR>
@@ -29,6 +29,7 @@ if &buftype == 'terminal'
     let l:term_cmd = getbufvar(bufnr('%'), 'term_title', '')
     if l:term_cmd !~ 'lazygit'
       tnoremap <buffer> jj <C-\><C-n>
+      tnoremap <buffer> <Esc> <C-\><C-n>
     endif
   endif
 endfunction
@@ -44,8 +45,8 @@ nnoremap gr <CMD>Glance references<CR>
 nnoremap <Leader>jf :Telescope jsonfly<cr> 
 nnoremap <Leader>db :DapToggleBreakpoint<CR>
 nnoremap <Leader>dc :DapContinue<CR>
-nnoremap cce <cmd>:CopilotChatExplain<cr>
-vnoremap cce <cmd>:CopilotChatExplain<cr>
+nnoremap <Leader>cp :CopilotChat<CR>
+vnoremap <Leader>cp :CopilotChat<CR>
 
 nmap <Leader>r :lua vim.lsp.buf.rename()<CR>
 nnoremap <leader>xx <cmd>TroubleToggle<cr>
@@ -76,6 +77,4 @@ nnoremap <Leader>ne :Noice errors<CR>
 nmap <leader>jj :lua require("neotest").run.run()<CR>
 "Neorg
 nmap <leader>nj :Neorg journal today<CR>
-" barbar
-nnoremap <D-t> :tabnew<CR>
-inoremap <D-t> <ESC>:tabnew<CR>
+nmap <leader>bo :%bd\|e#<cr>

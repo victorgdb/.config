@@ -1,12 +1,13 @@
 vim.g.loaded_netrw = 1
 vim.g.loaded_netrwPlugin = 1
-vim.g.loaded_matchparen = 1 -- disable built-in MatchParen for macOSX
--- vim.g.matchparen_timeout = 2
--- vim.g.matchparen_insert_timeout = 2
+-- vim.g.loaded_matchparen = 1 -- disable built-in MatchParen for macOSX
+vim.g.matchparen_timeout = 2
+vim.g.matchparen_insert_timeout = 2
 
 vim.opt.termguicolors = true
 vim.g.minimap_git_colors = 1
 vim.wo.relativenumber = true
+
 local lazypath = vim.fn.stdpath 'data' .. '/lazy/lazy.nvim'
 if not vim.loop.fs_stat(lazypath) then
   vim.fn.system {
@@ -19,14 +20,24 @@ if not vim.loop.fs_stat(lazypath) then
   }
 end
 vim.opt.rtp:prepend(lazypath)
-require('lazy').setup 'plugins'
-vim.g.db_adapter_bigquery_region = 'kaya'
+require('lazy').setup {
+  spec = {
+    import = 'plugins',
+  },
+  ui = {
+    border = 'rounded',
+  },
+}
+
 -- vim.cmd.colorscheme 'kanagawa-dragon'
 vim.cmd.colorscheme 'rose-pine-moon'
+-- vim.cmd.colorscheme 'nightfox'
 -- vim.cmd.colorscheme 'ayu'
 -- vim.cmd.colorscheme 'onenord'
 -- vim.cmd 'hi IlluminatedWordRead guibg=#525252'
+
 vim.api.nvim_set_hl(0, 'IlluminatedWordRead', { link = 'Visual' })
+
 local _border = 'single'
 vim.lsp.handlers['textDocument/hover'] = vim.lsp.with(vim.lsp.handlers.hover, {
   border = _border,
@@ -118,7 +129,11 @@ vim.api.nvim_create_autocmd({ 'BufEnter', 'BufAdd', 'User' }, {
     vim.o.tabline = Grapple_files()
   end,
 })
-
+vim.cmd [[
+	ToggleTerm
+	ToggleTerm2
+	ToggleTermToggleAll
+	 ]]
 -- Define the highlight groups
 vim.cmd [[
   highlight GrappleSelected guifg=#e0def4 guibg=#393552 gui=underline guisp=#f6c177

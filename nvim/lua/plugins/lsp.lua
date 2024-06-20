@@ -42,17 +42,19 @@ return {
       end
       local lspconfig = require 'lspconfig'
       lspconfig.prismals.setup {}
-      lspconfig.tsserver.setup {
-        on_attach = function(client, bufnr)
-          client.resolved_capabilities.document_formatting = false
-          on_attach(client, bufnr)
-        end,
-      }
+      -- lspconfig.tsserver.setup {
+      --   -- root_dir = require('lspconfig.util').root_pattern '.git',
+      --   on_attach = function(client, bufnr)
+      --     client.resolved_capabilities.document_formatting = false
+      --     on_attach(client, bufnr)
+      --   end,
+      -- }
       lspconfig.yamlls.setup {}
       lspconfig.jsonls.setup {
         tabSize = 110,
       }
       lspconfig.tailwindcss.setup {}
+      lspconfig.vtsls.setup {}
     end,
   },
   {
