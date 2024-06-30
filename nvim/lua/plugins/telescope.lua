@@ -25,11 +25,21 @@ return {
       require('telescope').load_extension 'aerial'
 
       -- require("telescope").load_extension("grapple")
-      require('telescope').load_extension 'jsonfly'
-      require('telescope').setup {
+      local prompt_chars = require('telescope').setup {
         defaults = {
-          -- `hidden = true` is not supported in text grep commands.
           vimgrep_arguments = vimgrep_arguments,
+          borderchars = {
+            prompt = { '▔', '▕', '▁', '▏', '🭽', '🭾', '🭿', '🭼' },
+            preview = { '▔', '▕', '▁', ' ', '▔', '🭾', '🭿', '▁' },
+            results = { '▔', '▕', ' ', '▏', '🭽', '🭾', '▕', '▏' },
+          },
+
+          mappings = {
+            i = {
+              ['<C-j>'] = require('telescope.actions').move_selection_next,
+              ['<C-k>'] = require('telescope.actions').move_selection_previous,
+            },
+          },
         },
         pickers = {
           find_files = {
@@ -62,13 +72,10 @@ return {
             case_mode = 'smart_case', -- or "ignore_case" or "respect_case"
             -- the default case_mode is "smart_case"
           },
-          jsonfly = {
-            backend = 'lua',
-          },
         },
       }
     end,
-    dependencies = { 'nvim-lua/plenary.nvim', 'Myzel394/jsonfly.nvim' },
+    dependencies = { 'nvim-lua/plenary.nvim' },
   },
   {
     'nvim-telescope/telescope-fzf-native.nvim',

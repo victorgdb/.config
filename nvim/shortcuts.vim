@@ -6,7 +6,6 @@ nmap <Leader>ff :Telescope live_grep<CR>
 nmap <c-f> :Neotree toggle<CR>
 " nmap <c-f> :lua MiniFiles.open()<CR>
 nmap <c-g> :LazyGit<CR>
-nmap <Leader>fj :%!jq '.'<CR>
 nmap <Leader>zz :ZenMode<CR>
 nmap gf :lua vim.diagnostic.open_float()<CR>
 nnoremap <silent> <c-h> :wincmd h<CR>
@@ -19,6 +18,7 @@ inoremap <D-s> <C-\><C-o>:w<CR><ESC>
 nnoremap <D-s> :w<CR>
 nmap <Leader>e :lua vim.lsp.buf.format({filter = function(client) return client.name ~= "tsserver" end})<CR>
 nnoremap <C-t> :ToggleTermToggleAll<CR>
+nno <C-b> :DBUIToggle<CR>
 " nnoremap <silent><leader>h :lua require('harpeek').toggle()<CR>
 nmap gb :Gitsigns blame_line<CR>
 nnoremap <Leader>fr :Telescope resume<CR>
@@ -42,7 +42,8 @@ nnoremap ZA ZQ
 nnoremap gd <cmd>vim.lsp.buf.definition<CR>
 nnoremap gi <cmd>Glance implementation<CR>
 nnoremap gr <CMD>Glance references<CR>
-nnoremap <Leader>jf :Telescope jsonfly<cr> 
+nnoremap <Leader>jf :%!jq '.'<CR>
+nnoremap <Leader>js :%!jq -S .<CR>
 nnoremap <Leader>db :DapToggleBreakpoint<CR>
 nnoremap <Leader>dc :DapContinue<CR>
 nnoremap <Leader>cp :CopilotChat<CR>

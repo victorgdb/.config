@@ -2,8 +2,69 @@ return {
   { 'rose-pine/neovim', name = 'rose-pine' },
   -- 'mhartington/oceanic-next',
   { 'EdenEast/nightfox.nvim' },
+  { 'lewpoly/sherbet.nvim' },
+  { 'savq/melange-nvim' },
+  {
+    'sho-87/kanagawa-paper.nvim',
+    lazy = false,
+    priority = 1000,
+    opts = {},
+  },
+  {
+    'catppuccin/nvim',
+    name = 'catppuccin',
+    priority = 1000,
+    config = function()
+      require('catppuccin').setup {
+        flavour = 'frappe',
+        integrations = {
+          aerial = true,
+          neotree = true,
+          neotest = true,
+          noice = true,
+          telescope = true,
+        },
+      }
+    end,
+  },
+  {
+    'AlexvZyl/nordic.nvim',
+    lazy = false,
+    priority = 1000,
+    config = function()
+      local palette = require 'nordic.colors'
+      require('nordic').setup {
+        noice = {
+          -- Available styles: `classic`, `flat`.
+          style = 'classic',
+        },
+        telescope = {
+          -- Available styles: `classic`, `flat`.
+          style = 'flat',
+        },
+        ts_context = {
+          -- Enables dark background for treesitter-context window
+          dark_background = true,
+        },
+        override = {
+          TelescopeSelection = {
+            fg = '#88C0D0',
+            bg = palette.gray2,
+          },
+          NeoTreeCursorLine = {
+            fg = '#88C0D0',
+            bg = palette.gray2,
+          },
+          TelescopeSelectionCaret = {
+            fg = '#88C0D0',
+            bg = palette.gray2,
+          },
+        },
+      }
+    end,
+  },
   { 'rebelot/kanagawa.nvim' },
-{'sainnhe/everforest'},
+  { 'sainnhe/everforest' },
   {
     'Shatur/neovim-ayu',
     config = function()

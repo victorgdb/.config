@@ -11,8 +11,8 @@ return {
           },
           hover = {
             border = {
-              style = 'rounded',
-	      padding = nil
+              style = 'none',
+              padding = { 1, 1 },
             },
           },
         },
