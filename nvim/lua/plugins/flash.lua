@@ -4,7 +4,7 @@ return {
   ---@type Flash.Config
   opts = {
     jump = {
-      autojump = true,
+      -- autojump = true,
       nohlsearch = true,
     },
     modes = {

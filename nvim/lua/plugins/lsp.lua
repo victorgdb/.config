@@ -98,27 +98,6 @@ return {
     },
   },
   { 'Bilal2453/luvit-meta', lazy = true },
-  {
-    'neovim/nvim-lspconfig',
-    event = { 'BufReadPre', 'BufNewFile', 'BufWritePre' },
-    opts = {
-      inlay_hints = { enabled = true },
-    },
-    dependencies = {
-      'williamboman/mason.nvim',
-      {
-        'williamboman/mason-lspconfig.nvim',
-        opt = true,
-      },
-      {
-        'SmiteshP/nvim-navbuddy',
-        dependencies = {
-          'SmiteshP/nvim-navic',
-          'MunifTanjim/nui.nvim',
-        },
-      },
-    },
-  },
   'hrsh7th/cmp-nvim-lsp',
   {
     'hrsh7th/nvim-cmp',
