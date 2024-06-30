@@ -10,7 +10,6 @@ local lsp_formatting = function(bufnr)
 end
 
 local local_on_attach = function(client, bufnr)
-  vim.lsp.inlay_hint.enable(true, { bufnr = bufnr })
   if client.supports_method 'textDocument/formatting' then
     vim.api.nvim_create_autocmd('BufWritePre', {
       buffer = bufnr,
@@ -22,6 +21,73 @@ local local_on_attach = function(client, bufnr)
 end
 
 return {
+  {
+    'junnplus/lsp-setup.nvim',
+    dependencies = {
+      'neovim/nvim-lspconfig',
+      'williamboman/mason.nvim', -- optional
+      'williamboman/mason-lspconfig.nvim', -- optional
+    },
+    config = function()
+      require('lsp-setup').setup {
+        inlay_hints = {
+          enabled = false,
+        },
+        servers = {
+          lua_ls = {
+            on_attach = local_on_attach,
+            settings = {
+              Lua = {
+                diagnostics = {
+                  globals = { 'vim' },
+                },
+                hint = {
+                  enable = true,
+                },
+              },
+            },
+          },
+          prismals = {},
+          yamlls = {},
+          jsonls = {
+            settings = {
+              tabSize = 110,
+            },
+          },
+          tailwindcss = {},
+          tsserver = {
+            settings = {
+              typescript = {
+                inlayHints = {
+                  includeInlayParameterNameHints = 'all',
+                  includeInlayParameterNameHintsWhenArgumentMatchesName = false,
+                  includeInlayFunctionParameterTypeHints = true,
+                  includeInlayVariableTypeHints = false,
+                  includeInlayVariableTypeHintsWhenTypeMatchesName = false,
+                  includeInlayPropertyDeclarationTypeHints = true,
+                  includeInlayFunctionLikeReturnTypeHints = true,
+                  includeInlayEnumMemberValueHints = true,
+                },
+              },
+              javascript = {
+                inlayHints = {
+                  includeInlayParameterNameHints = 'all',
+                  includeInlayParameterNameHintsWhenArgumentMatchesName = false,
+                  includeInlayFunctionParameterTypeHints = true,
+                  includeInlayVariableTypeHints = false,
+                  includeInlayVariableTypeHintsWhenTypeMatchesName = false,
+                  includeInlayPropertyDeclarationTypeHints = true,
+                  includeInlayFunctionLikeReturnTypeHints = true,
+                  includeInlayEnumMemberValueHints = true,
+                },
+              },
+            },
+            on_attach = local_on_attach,
+          },
+        },
+      }
+    end,
+  },
   {
     'folke/lazydev.nvim',
     ft = 'lua',
@@ -35,7 +101,9 @@ return {
   {
     'neovim/nvim-lspconfig',
     event = { 'BufReadPre', 'BufNewFile', 'BufWritePre' },
-    on_attach = local_on_attach,
+    opts = {
+      inlay_hints = { enabled = true },
+    },
     dependencies = {
       'williamboman/mason.nvim',
       {
@@ -50,55 +118,6 @@ return {
         },
       },
     },
-    config = function()
-      local lspconfig = require 'lspconfig'
-      lspconfig.prismals.setup {}
-      lspconfig.tsserver.setup {
-        init_options = {
-          preferences = {
-            includeInlayParameterNameHints = 'all',
-            includeInlayParameterNameHintsWhenArgumentMatchesName = true,
-            includeInlayFunctionParameterTypeHints = true,
-            includeInlayVariableTypeHints = true,
-            includeInlayPropertyDeclarationTypeHints = true,
-            includeInlayFunctionLikeReturnTypeHints = true,
-            includeInlayEnumMemberValueHints = true,
-            importModuleSpecifierPreference = 'non-relative',
-          },
-        },
-        root_dir = require('lspconfig.util').root_pattern '.git',
-        on_attach = local_on_attach,
-      }
-      lspconfig.lua_ls.setup {
-        on_attach = local_on_attach,
-        settings = {
-          Lua = {
-            diagnostics = {
-              globals = { 'vim' },
-            },
-          },
-        },
-      }
-      lspconfig.yamlls.setup {}
-      lspconfig.jsonls.setup {
-        tabSize = 110,
-      }
-      lspconfig.tailwindcss.setup {}
-    end,
-  },
-  {
-    'williamboman/mason-lspconfig.nvim',
-    config = function()
-      require('mason-lspconfig').setup {
-        ensure_installed = { 'prismals', 'jsonls', 'sqlls' },
-      }
-    end,
-  },
-  {
-    'williamboman/mason.nvim',
-    config = function()
-      require('mason').setup()
-    end,
   },
   'hrsh7th/cmp-nvim-lsp',
   {

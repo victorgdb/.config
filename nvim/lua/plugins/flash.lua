@@ -4,12 +4,12 @@ return {
   ---@type Flash.Config
   opts = {
     jump = {
-
       autojump = true,
       nohlsearch = true,
     },
     modes = {
       char = {
+        autojump = true,
         jump_labels = true,
         multi_line = false,
       },
