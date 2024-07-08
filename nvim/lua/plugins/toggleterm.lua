@@ -3,7 +3,7 @@ return {
   version = '*',
   config = true,
   opts = {
-    direction = 'vertical',
+    direction = 'float',
     size = 55,
     shade_terminals = false,
     persist_size = true,

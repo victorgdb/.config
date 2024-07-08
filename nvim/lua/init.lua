@@ -55,11 +55,20 @@ require('lazy').setup {
   },
   ui = { border = { '🭽', '▔', '🭾', '▕', '🭿', '▁', '🭼', '▏' } },
 }
-
+local _border = 'single'
+vim.lsp.handlers['textDocument/hover'] = vim.lsp.with(vim.lsp.handlers.hover, {
+  border = _border,
+})
+vim.diagnostic.config {
+  float = { border = 'rounded' },
+}
+vim.lsp.handlers['textDocument/signatureHelp'] = vim.lsp.with(vim.lsp.handlers.signature_help, {
+  border = _border,
+})
 -- vim.cmd.colorscheme 'kanagawa-dragon'
 -- vim.cmd.colorscheme 'rose-pine-moon'
--- vim.cmd.colorscheme 'nordic'
-vim.cmd.colorscheme 'catppuccin'
+vim.cmd.colorscheme 'nordic'
+-- vim.cmd.colorscheme 'catppuccin'
 -- vim.cmd.colorscheme 'nightfox'
 -- vim.cmd.colorscheme 'catppuccin'
 -- vim.cmd.colorscheme 'ayu'
@@ -69,7 +78,7 @@ vim.cmd.colorscheme 'catppuccin'
 vim.api.nvim_set_hl(0, 'IlluminatedWordRead', { link = 'Visual' })
 
 vim.opt.ignorecase = true -- Make searches case insensitive
-vim.opt.smartcase = true -- Make searches case sensitive if there's an uppercase letter in the search
+vim.opt.smartcase = true  -- Make searches case sensitive if there's an uppercase letter in the search
 
 function Grapple_files()
   local contents = {}
@@ -133,31 +142,9 @@ vim.api.nvim_create_autocmd({ 'BufEnter', 'BufAdd', 'User' }, {
 })
 
 vim.cmd [[
-   highlight Search ctermfg=NONE ctermbg=NONE guifg=NONE guibg=NONE
-   highlight link Search LspReferenceText
+  highlight Search ctermfg=NONE ctermbg=NONE guifg=NONE guibg=NONE
+  highlight link Search LspReferenceText
   highlight GrappleSelected guifg=#e0def4 guibg=#393552 gui=underline guisp=#f6c177
   highlight GrappleInactive guifg=#908caa guibg=#2a273f
   highlight GrappleCurrentBuffer guifg=#e0def4 guibg=#2a273f gui=underline guisp=#9ccfd8
 ]]
-
-local palette = require 'nordic.colors'
--- Define the highlight groups
---   highlight NeoTreeCursorLine guibg=%s
--- highlight NeoTreeGitUntracked guifg=%s
--- highlight NeoTreeFileName guibg=%s
--- highlight NeoTreeNormal guibg=%s
--- highlight NeoTreeNormalNC guibg=%s
-
--- vim.cmd(string.format(
---   [[
---   highlight Search ctermfg=NONE ctermbg=NONE guifg=NONE guibg=NONE
---   highlight link Search LspReferenceText
---   highlight GrappleInactive guifg=#908caa guibg=#2a273f
---   highlight GrappleCurrentBuffer guifg=#e0def4 guibg=#2a273f gui=underline guisp=#9ccfd8
--- ]],
---   palette.gray2,
---   palette.orange.base,
---   palette.black1,
---   palette.black1,
---   palette.black1
--- ))

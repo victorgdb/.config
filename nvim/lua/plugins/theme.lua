@@ -1,7 +1,8 @@
 return {
-  { 'rose-pine/neovim', name = 'rose-pine' },
+  { 'rose-pine/neovim',        name = 'rose-pine' },
   -- 'mhartington/oceanic-next',
   { 'EdenEast/nightfox.nvim' },
+  { 'mhartington/oceanic-next' },
   { 'lewpoly/sherbet.nvim' },
   { 'savq/melange-nvim' },
   {
@@ -59,6 +60,18 @@ return {
             fg = '#88C0D0',
             bg = palette.gray2,
           },
+          NormalFloat = {
+            bg = palette.bg_float,
+          },
+          PmenuSel = {
+            bg = palette.gray2,
+          },
+          Pmenu = {
+            bg = palette.bg_float
+          },
+          Visual = {
+            bg = palette.gray2,
+          },
         },
       }
     end,
@@ -69,7 +82,7 @@ return {
     'Shatur/neovim-ayu',
     config = function()
       require('ayu').setup {
-        mirage = true, -- Set to `true` to use `mirage` variant instead of `dark` for dark background.
+        mirage = true,  -- Set to `true` to use `mirage` variant instead of `dark` for dark background.
         overrides = {}, -- A dictionary of group names, each associated with a dictionary of parameters (`bg`, `fg`, `sp` and `style`) and colors in hex.
       }
     end,

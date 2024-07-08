@@ -1,31 +1,9 @@
-local lsp_formatting = function(bufnr)
-  vim.lsp.buf.format {
-    async = false,
-    timeout_ms = 10000,
-    filter = function(client)
-      return client.name == 'null-ls'
-    end,
-    bufnr = bufnr,
-  }
-end
-
-local local_on_attach = function(client, bufnr)
-  if client.supports_method 'textDocument/formatting' then
-    vim.api.nvim_create_autocmd('BufWritePre', {
-      buffer = bufnr,
-      callback = function()
-        lsp_formatting(bufnr)
-      end,
-    })
-  end
-end
-
 return {
   {
     'junnplus/lsp-setup.nvim',
     dependencies = {
       'neovim/nvim-lspconfig',
-      'williamboman/mason.nvim', -- optional
+      'williamboman/mason.nvim',           -- optional
       'williamboman/mason-lspconfig.nvim', -- optional
     },
     config = function()
@@ -35,7 +13,6 @@ return {
         },
         servers = {
           lua_ls = {
-            on_attach = local_on_attach,
             settings = {
               Lua = {
                 diagnostics = {
@@ -54,7 +31,9 @@ return {
               tabSize = 110,
             },
           },
+          eslint = {},
           tailwindcss = {},
+          biome = {},
           tsserver = {
             settings = {
               typescript = {
@@ -82,7 +61,6 @@ return {
                 },
               },
             },
-            on_attach = local_on_attach,
           },
         },
       }
@@ -103,23 +81,61 @@ return {
     'hrsh7th/nvim-cmp',
     config = function()
       local cmp = require 'cmp'
-      local lspkind = require 'lspkind'
+      local cmp_kinds = {
+        Text = '  ',
+        Method = '  ',
+        Function = '  ',
+        Constructor = '  ',
+        Field = '  ',
+        Variable = '  ',
+        Class = '  ',
+        Interface = '  ',
+        Module = '  ',
+        Property = '  ',
+        Unit = '  ',
+        Value = '  ',
+        Enum = '  ',
+        Keyword = '  ',
+        Snippet = '  ',
+        Color = '  ',
+        File = '  ',
+        Reference = '  ',
+        Folder = '  ',
+        EnumMember = '  ',
+        Constant = '  ',
+        Struct = '  ',
+        Event = '  ',
+        Operator = '  ',
+        TypeParameter = '  ',
+      }
       cmp.setup {
+        window = {
+          completion = {
+            col_offset = -3,
+            side_padding = 0,
+          },
+        },
         formatting = {
           expandable_indicator = false,
-          fields = { 'abbr', 'menu', 'kind' },
-          format = function(entry, item)
-            local content = item.abbr
-            local fixed_width = false
-            local win_width = vim.api.nvim_win_get_width(0)
-            local max_content_width = fixed_width and fixed_width - 10 or math.floor(win_width * 0.2)
-
-            if #content > max_content_width then
-              item.abbr = vim.fn.strcharpart(content, 0, max_content_width - 3) .. '...'
-            else
-              item.abbr = content .. (' '):rep(max_content_width - #content)
-            end
-            return item
+          fields = { 'kind', 'abbr', 'menu' },
+          format = function(entry, vim_item)
+            -- local content = item.abbr
+            -- local fixed_width = false
+            -- local win_width = vim.api.nvim_win_get_width(0)
+            -- local max_content_width = fixed_width and fixed_width - 10 or
+            --     math.floor(win_width * 0.2)
+            --
+            -- if #content > max_content_width then
+            --   item.abbr = vim.fn.strcharpart(content, 0, max_content_width - 3) ..
+            --       '...'
+            -- else
+            --   item.abbr = content .. (' '):rep(max_content_width - #content)
+            -- end
+            local kind = require("lspkind").cmp_format({ mode = "symbol_text", maxwidth = 50 })(entry, vim_item)
+            local strings = vim.split(kind.kind, "%s", { trimempty = true })
+            kind.kind = " " .. (strings[1] or "") .. " "
+            kind.menu = "    (" .. (strings[2] or "") .. ")"
+            return kind
           end,
         },
         mapping = cmp.mapping.preset.insert {
@@ -134,31 +150,9 @@ return {
         sources = cmp.config.sources {
           { name = 'neorg' },
           { name = 'nvim_lsp_signature_help' },
-          { name = 'luasnip' },
           { name = 'nvim_lsp' },
           { name = 'buffer' },
           { name = 'lazydev' },
-        },
-      }
-    end,
-  },
-  {
-    'nvimtools/none-ls.nvim',
-    dependencies = {
-      'roobert/tailwindcss-colorizer-cmp.nvim',
-      'nvimtools/none-ls-extras.nvim',
-    },
-    config = function()
-      local null_ls = require 'null-ls'
-
-      null_ls.setup {
-        on_attach = local_on_attach,
-        sources = {
-          null_ls.builtins.formatting.stylua,
-          null_ls.builtins.formatting.pg_format,
-          require 'none-ls.code_actions.eslint_d',
-          require 'none-ls.diagnostics.eslint_d',
-          require 'none-ls.formatting.eslint_d',
         },
       }
     end,

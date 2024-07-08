@@ -17,13 +17,14 @@ nnoremap <D-r> :Telescope aerial<CR>
 inoremap <D-s> <C-\><C-o>:w<CR><ESC>
 nnoremap <D-s> :w<CR>
 nmap <Leader>e :lua vim.lsp.buf.format({filter = function(client) return client.name ~= "tsserver" end})<CR>
-nnoremap <C-t> :ToggleTermToggleAll<CR>
+nnoremap <C-t> :ToggleTerm<CR>
 nno <C-b> :DBUIToggle<CR>
 " nnoremap <silent><leader>h :lua require('harpeek').toggle()<CR>
 nmap gb :Gitsigns blame_line<CR>
 nnoremap <Leader>fr :Telescope resume<CR>
 nnoremap <silent> <leader>gg :LazyGit<CR>
 nnoremap QQ :qa!<CR>
+
 function! s:conditionally_map_jj()
 if &buftype == 'terminal'
     let l:term_cmd = getbufvar(bufnr('%'), 'term_title', '')
@@ -38,6 +39,7 @@ augroup TerminalMappings
   autocmd!
   autocmd TermOpen * call s:conditionally_map_jj()
 augroup END ktnoremap <Esc> <C-\><C-n>
+
 nnoremap ZA ZQ
 nnoremap gd <cmd>vim.lsp.buf.definition<CR>
 nnoremap gi <cmd>Glance implementation<CR>
@@ -58,7 +60,7 @@ nmap <Leader>p :Oil<CR>
 nnoremap <S-Left> :BufferMovePrevious<CR>
 nnoremap <S-Right> :BufferMoveNext<CR>
 nnoremap <D-s-t> :BufferRestore<CR>
-imap <silent><expr> <Tab> luasnip#expand_or_jumpable() ? '<Plug>luasnip-expand-or-jump' : '<Tab>' 
+imap <silent><expr> <Tab> luasnip#expand_or_jumpable() ? '<Plug>luasnip-expand-or-jump' : '<Tab>'
 " -1 for jumping backwards.
 inoremap <silent> <S-Tab> <cmd>lua require'luasnip'.jump(-1)<CR>
 
