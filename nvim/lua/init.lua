@@ -36,7 +36,7 @@ vim.wo.relativenumber = true
 vim.opt.swapfile = false
 
 -- local U = require 'utils.chars'
-
+-- Map the key combination to the toggle function
 local lazypath = vim.fn.stdpath 'data' .. '/lazy/lazy.nvim'
 if not vim.loop.fs_stat(lazypath) then
   vim.fn.system {
@@ -96,29 +96,20 @@ function Grapple_files()
   end
 
   local current_in_list = false
-
   for index, tag in ipairs(tags) do
     local grapple_file_path = tag.path
     local buffer_number = vim.fn.bufnr(grapple_file_path)
-
-    if buffer_number == -1 or not vim.fn.filereadable(grapple_file_path) then
-      goto continue
+    if buffer_number ~= -1 and vim.fn.filereadable(grapple_file_path) ~= 0 then
+      local file_name = grapple_file_path == '' and '(empty)' or vim.fn.fnamemodify(grapple_file_path, ':t')
+      local padded_file_name = string.format(' %s ', file_name)
+      local padded_index = string.format(' %s. ', index)
+      if current_file_path == grapple_file_path or index == selected_index then
+        current_in_list = true
+        table.insert(contents, string.format('%%#GrappleSelected#%s%s', padded_index, padded_file_name))
+      else
+        table.insert(contents, string.format('%%#GrappleInactive#%s%s', padded_index, padded_file_name))
+      end
     end
-
-    local file_name = grapple_file_path == '' and '(empty)' or vim.fn.fnamemodify(grapple_file_path, ':t')
-
-    -- Add padding around the text
-    local padded_file_name = string.format(' %s ', file_name)
-    local padded_index = string.format(' %s. ', index)
-
-    if current_file_path == grapple_file_path or index == selected_index then
-      current_in_list = true
-      table.insert(contents, string.format('%%#GrappleSelected#%s%s', padded_index, padded_file_name))
-    else
-      table.insert(contents, string.format('%%#GrappleInactive#%s%s', padded_index, padded_file_name))
-    end
-
-    ::continue::
   end
 
   -- If the current buffer is not in the Grapple list and is a real buffer, add it at the end with a special highlight
@@ -133,9 +124,9 @@ function Grapple_files()
   return table.concat(contents, ' ')
 end
 
--- Set up autocommand to update the tabline with grapple tags
+-- set up autocommand to update the tabline with grapple tags
 vim.opt.showtabline = 2
-vim.api.nvim_create_autocmd({ 'BufEnter', 'BufAdd', 'User' }, {
+vim.api.nvim_create_autocmd({ 'bufenter', 'bufadd', 'user' }, {
   callback = function(ev)
     vim.o.tabline = Grapple_files()
   end,
@@ -148,3 +139,11 @@ vim.cmd [[
   highlight GrappleInactive guifg=#908caa guibg=#2a273f
   highlight GrappleCurrentBuffer guifg=#e0def4 guibg=#2a273f gui=underline guisp=#9ccfd8
 ]]
+-- Define the toggle function
+local minifiles_toggle = function()
+  if not MiniFiles.close() then
+    MiniFiles.open(vim.api.nvim_buf_get_name(0))
+    MiniFiles.reveal_cwd()
+  end
+end
+vim.keymap.set('n', '<c-f>', minifiles_toggle)

@@ -3,8 +3,7 @@ let maplocalleader = ","
 nnoremap <D-p> :Telescope smart_open<CR>
 ino <D-p> <ESC>:Telescope smart_open<CR>
 nmap <Leader>ff :Telescope live_grep<CR>
-nmap <c-f> :Neotree toggle<CR>
-" nmap <c-f> :lua MiniFiles.open()<CR>
+" nmap <c-f> :lua minifiles_toggle<CR>
 nmap <c-g> :LazyGit<CR>
 nmap <Leader>zz :ZenMode<CR>
 nmap gf :lua vim.diagnostic.open_float()<CR>
@@ -16,14 +15,13 @@ nnoremap <silent> <c-k> :wincmd k<CR>
 nnoremap <D-r> :Telescope aerial<CR>
 inoremap <D-s> <C-\><C-o>:w<CR><ESC>
 nnoremap <D-s> :w<CR>
-nmap <Leader>e :lua vim.lsp.buf.format({filter = function(client) return client.name ~= "tsserver" end})<CR>
+" nmap <Leader>e :lua vim.lsp.buf.format()<CR>
 nnoremap <C-t> :ToggleTerm<CR>
 nno <C-b> :DBUIToggle<CR>
 " nnoremap <silent><leader>h :lua require('harpeek').toggle()<CR>
 nmap gb :Gitsigns blame_line<CR>
 nnoremap <Leader>fr :Telescope resume<CR>
 nnoremap <silent> <leader>gg :LazyGit<CR>
-nnoremap QQ :qa!<CR>
 
 function! s:conditionally_map_jj()
 if &buftype == 'terminal'
@@ -49,6 +47,7 @@ nnoremap <Leader>js :%!jq -S .<CR>
 nnoremap <Leader>db :DapToggleBreakpoint<CR>
 nnoremap <Leader>dc :DapContinue<CR>
 nnoremap <Leader>cp :CopilotChat<CR>
+nnoremap dv :DiffviewFileHistory %<CR>
 vnoremap <Leader>cp :CopilotChat<CR>
 
 nmap <Leader>r :lua vim.lsp.buf.rename()<CR>
@@ -60,16 +59,6 @@ nmap <Leader>p :Oil<CR>
 nnoremap <S-Left> :BufferMovePrevious<CR>
 nnoremap <S-Right> :BufferMoveNext<CR>
 nnoremap <D-s-t> :BufferRestore<CR>
-imap <silent><expr> <Tab> luasnip#expand_or_jumpable() ? '<Plug>luasnip-expand-or-jump' : '<Tab>'
-" -1 for jumping backwards.
-inoremap <silent> <S-Tab> <cmd>lua require'luasnip'.jump(-1)<CR>
-
-snoremap <silent> <Tab> <cmd>lua require('luasnip').jump(1)<CR>
-snoremap <silent> <S-Tab> <cmd>lua require('luasnip').jump(-1)<CR>
-
-" For changing choices in choiceNodes (not strictly necessary for a basic setup).
-imap <silent><expr> <C-E> luasnip#choice_active() ? '<Plug>luasnip-next-choice' : '<C-E>'
-smap <silent><expr> <C-E> luasnip#choice_active() ? '<Plug>luasnip-next-choice' : '<C-E>'
 
 " Noice
 nnoremap <Leader>nh :Noice history<CR>
@@ -81,3 +70,4 @@ nmap <leader>jj :lua require("neotest").run.run()<CR>
 "Neorg
 nmap <leader>nj :Neorg journal today<CR>
 nmap <leader>bo :%bd\|e#<cr>
+nmap QQ <cmd>qa!<CR>

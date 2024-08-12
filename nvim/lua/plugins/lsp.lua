@@ -8,9 +8,6 @@ return {
     },
     config = function()
       require('lsp-setup').setup {
-        inlay_hints = {
-          enabled = false,
-        },
         servers = {
           lua_ls = {
             settings = {
@@ -24,6 +21,38 @@ return {
               },
             },
           },
+          pylsp = {
+            autostart = true,
+            settings = {
+              pylsp = {
+                plugins = {
+                  pycodestyle = { enabled = false },
+                  black = {
+                    enabled = false,
+                    cache_config = true,
+                  },
+                  pylsp_mypy = {
+                    enabled = false,
+                    live_mode = true,
+                    dmypy = true,
+                    report_progress = true,
+                  },
+                  isort = {
+                    enabled = false,
+                  },
+                  ruff = {
+                    enabled = true,
+                  },
+                  jedi_completion = { fuzzy = true },
+                  -- to install plugins:
+                  -- :PylspInstall pylsp-mypy
+                  -- :PylspInstall pyls-isort
+                  -- :PylspInstall python-lsp-black
+                }
+              }
+            },
+          },
+          markdown_oxide = {},
           prismals = {},
           yamlls = {},
           jsonls = {
@@ -35,35 +64,41 @@ return {
           tailwindcss = {},
           biome = {},
           tsserver = {
-            settings = {
-              typescript = {
-                inlayHints = {
-                  includeInlayParameterNameHints = 'all',
-                  includeInlayParameterNameHintsWhenArgumentMatchesName = false,
-                  includeInlayFunctionParameterTypeHints = true,
-                  includeInlayVariableTypeHints = false,
-                  includeInlayVariableTypeHintsWhenTypeMatchesName = false,
-                  includeInlayPropertyDeclarationTypeHints = true,
-                  includeInlayFunctionLikeReturnTypeHints = true,
-                  includeInlayEnumMemberValueHints = true,
-                },
-              },
-              javascript = {
-                inlayHints = {
-                  includeInlayParameterNameHints = 'all',
-                  includeInlayParameterNameHintsWhenArgumentMatchesName = false,
-                  includeInlayFunctionParameterTypeHints = true,
-                  includeInlayVariableTypeHints = false,
-                  includeInlayVariableTypeHintsWhenTypeMatchesName = false,
-                  includeInlayPropertyDeclarationTypeHints = true,
-                  includeInlayFunctionLikeReturnTypeHints = true,
-                  includeInlayEnumMemberValueHints = true,
-                },
-              },
-            },
+            on_attach = function(client)
+              -- Don't use tsserver for formatting, use eslint or biome instead
+              client.server_capabilities.documentFormattingProvider = false
+            end,
           },
         },
       }
+      vim.api.nvim_create_autocmd('LspAttach', {
+        callback = function(args)
+          local client = vim.lsp.get_client_by_id(args.data.client_id)
+          if client == nil then
+            return
+          end
+          if client.name == "markdown_oxide" then
+            vim.api.nvim_create_user_command(
+              "Daily",
+              function(args)
+                local input = args.args
+
+                vim.lsp.buf.execute_command({ command = "jump", arguments = { input } })
+              end,
+              { desc = 'Open daily note', nargs = "*" }
+            )
+          end
+          -- Format on save
+          if client.supports_method('textDocument/format') then
+            vim.cmd [[
+							augroup format_on_save
+								au!
+								autocmd BufWritePre <buffer> lua vim.lsp.buf.format()
+							augroup END
+						]]
+          end
+        end
+      })
     end,
   },
   {
@@ -150,7 +185,11 @@ return {
         sources = cmp.config.sources {
           { name = 'neorg' },
           { name = 'nvim_lsp_signature_help' },
-          { name = 'nvim_lsp' },
+          { name = 'nvim_lsp', option = {
+            markdown_oxide = {
+              keyword_pattern = [[\(\k\| \|\/\|#\)\+]]
+            }
+          } },
           { name = 'buffer' },
           { name = 'lazydev' },
         },

@@ -72,6 +72,16 @@ return {
           Visual = {
             bg = palette.gray2,
           },
+          MiniFilesNormal = {
+            bg = palette.bg_float,
+          },
+          MiniFilesCursorLine = {
+            bg = palette.gray2,
+          },
+          MiniFilesBorder = {
+            bg = palette.bg_float,
+            fg = palette.black0,
+          },
         },
       }
     end,
