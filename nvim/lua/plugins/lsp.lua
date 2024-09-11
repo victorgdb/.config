@@ -54,16 +54,18 @@ return {
           },
           markdown_oxide = {},
           prismals = {},
+          terraformls = {},
           yamlls = {},
-          jsonls = {
-            settings = {
-              tabSize = 110,
-            },
-          },
+          sqls = {},
+          -- jsonls = {
+          --   settings = {
+          --     tabSize = 110,
+          --   },
+          -- },
           eslint = {},
           tailwindcss = {},
           biome = {},
-          tsserver = {
+          ts_ls = {
             on_attach = function(client)
               -- Don't use tsserver for formatting, use eslint or biome instead
               client.server_capabilities.documentFormattingProvider = false
@@ -154,18 +156,6 @@ return {
           expandable_indicator = false,
           fields = { 'kind', 'abbr', 'menu' },
           format = function(entry, vim_item)
-            -- local content = item.abbr
-            -- local fixed_width = false
-            -- local win_width = vim.api.nvim_win_get_width(0)
-            -- local max_content_width = fixed_width and fixed_width - 10 or
-            --     math.floor(win_width * 0.2)
-            --
-            -- if #content > max_content_width then
-            --   item.abbr = vim.fn.strcharpart(content, 0, max_content_width - 3) ..
-            --       '...'
-            -- else
-            --   item.abbr = content .. (' '):rep(max_content_width - #content)
-            -- end
             local kind = require("lspkind").cmp_format({ mode = "symbol_text", maxwidth = 50 })(entry, vim_item)
             local strings = vim.split(kind.kind, "%s", { trimempty = true })
             kind.kind = " " .. (strings[1] or "") .. " "

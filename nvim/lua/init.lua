@@ -95,13 +95,23 @@ function Grapple_files()
     return buftype == '' and filetype ~= 'TelescopePrompt'
   end
 
+  local function get_display_name(file_path)
+    local file_name = vim.fn.fnamemodify(file_path, ':t')
+    local lower_file_name = file_name:lower()
+    if lower_file_name == 'index.tsx' or lower_file_name == 'index.ts' then
+      local parent_dir = vim.fn.fnamemodify(file_path, ':h:t')
+      return parent_dir .. '/' .. file_name
+    end
+    return file_name
+  end
+
   local current_in_list = false
   for index, tag in ipairs(tags) do
     local grapple_file_path = tag.path
     local buffer_number = vim.fn.bufnr(grapple_file_path)
     if buffer_number ~= -1 and vim.fn.filereadable(grapple_file_path) ~= 0 then
-      local file_name = grapple_file_path == '' and '(empty)' or vim.fn.fnamemodify(grapple_file_path, ':t')
-      local padded_file_name = string.format(' %s ', file_name)
+      local display_name = get_display_name(grapple_file_path)
+      local padded_file_name = string.format(' %s ', display_name == '' and '(empty)' or display_name)
       local padded_index = string.format(' %s. ', index)
       if current_file_path == grapple_file_path or index == selected_index then
         current_in_list = true

@@ -23,7 +23,6 @@ return {
       table.insert(vimgrep_arguments, '--glob')
       table.insert(vimgrep_arguments, '!**/.git/*')
       require('telescope').load_extension 'aerial'
-
       -- require("telescope").load_extension("grapple")
       local prompt_chars = require('telescope').setup {
         defaults = {
@@ -75,7 +74,7 @@ return {
         },
       }
     end,
-    dependencies = { 'nvim-lua/plenary.nvim' },
+    dependencies = { 'nvim-lua/plenary.nvim', },
   },
   {
     'nvim-telescope/telescope-fzf-native.nvim',

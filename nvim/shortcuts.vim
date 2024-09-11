@@ -65,6 +65,8 @@ nnoremap <Leader>nh :Noice history<CR>
 nnoremap <Leader>nl :Noice last<CR>
 nnoremap <Leader>ne :Noice errors<CR>
 
+nmap R %
+
 " Jest
 nmap <leader>jj :lua require("neotest").run.run()<CR>
 "Neorg
