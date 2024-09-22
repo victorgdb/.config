@@ -13,6 +13,10 @@ return {
   cmd = {
     'ObsidianQuickSwitch',
     'ObsidianToday',
+    'ObsidianNew',
+    'ObsidianSearch',
+    'ObsidianDailies',
+    'ObsidianWorkspace',
     'ObsidianFollowLink',
   },
   dependencies = {
@@ -21,28 +25,15 @@ return {
 
     -- see below for full list of optional dependencies 👇
   },
-  config = function()
-    require('obsidian').setup {
-      workspaces = {
-
-        {
-          name = 'personal',
-          path = '~/Documents/MyVault',
-        },
-      },
-      completion = {
-        -- Set to false to disable completion.
-        nvim_cmp = true,
-        -- Trigger completion at 2 chars.
-        min_chars = 2,
-      },
-    }
-  end,
   opts = {
     workspaces = {
       {
         name = 'personal',
         path = '~/Documents/MyVault',
+      },
+      {
+        name = 'carbonfact',
+        path = '~/Documents/MyVault/carbonfact',
       },
     },
     completion = {
@@ -51,7 +42,14 @@ return {
       -- Trigger completion at 2 chars.
       min_chars = 2,
     },
-
-    -- see below for full list of options 👇
+    daily_notes = {
+      -- Optional, if you keep daily notes in a separate directory.
+      folder = "dailies",
+      date_format = "%d %b %Y",
+      alias_format = "%B %-d, %Y",
+      default_tags = { "daily-notes" },
+      -- Optional, if you want to automatically insert a template from your template directory like 'daily.md'
+      template = nil
+    },
   },
 }

@@ -4,7 +4,13 @@ return {
   build = "make", -- This is Optional, only if you want to use tiktoken_core to calculate tokens count
   opts = {
     -- add any opts here
-    provider = 'claude'
+    provider = 'claude',
+    mappings = {
+      sidebar = {
+        switch_windows = '<C>mt',
+        reverse_switch_windows = '<C>mr',
+      },
+    }
   },
   dependencies = {
     "nvim-tree/nvim-web-devicons", -- or echasnovski/mini.icons

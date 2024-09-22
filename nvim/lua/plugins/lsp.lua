@@ -8,6 +8,7 @@ return {
     },
     config = function()
       require('lsp-setup').setup {
+        default_mappings = false,
         servers = {
           lua_ls = {
             settings = {
@@ -56,12 +57,12 @@ return {
           prismals = {},
           terraformls = {},
           yamlls = {},
-          sqls = {},
-          -- jsonls = {
-          --   settings = {
-          --     tabSize = 110,
-          --   },
-          -- },
+          -- sqls = {},
+          jsonls = {
+            settings = {
+              tabSize = 110,
+            },
+          },
           eslint = {},
           tailwindcss = {},
           biome = {},
@@ -90,14 +91,13 @@ return {
               { desc = 'Open daily note', nargs = "*" }
             )
           end
-          -- Format on save
           if client.supports_method('textDocument/format') then
             vim.cmd [[
-							augroup format_on_save
-								au!
-								autocmd BufWritePre <buffer> lua vim.lsp.buf.format()
-							augroup END
-						]]
+              augroup format_on_save
+                au!
+                autocmd BufWritePre <buffer> lua vim.lsp.buf.format()
+              augroup END
+            ]]
           end
         end
       })

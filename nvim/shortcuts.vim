@@ -7,11 +7,13 @@ nmap <Leader>ff :Telescope live_grep<CR>
 nmap <c-g> :LazyGit<CR>
 nmap <Leader>zz :ZenMode<CR>
 nmap gf :lua vim.diagnostic.open_float()<CR>
-nnoremap <silent> <c-h> :wincmd h<CR>
-nnoremap <silent> <c-l> :wincmd l<CR>
-nnoremap <silent> <c-j> :wincmd j<CR>
-nnoremap <silent> <c-k> :wincmd k<CR>
+
+" nnoremap <silent> <c-h> :wincmd h<CR>
+" nnoremap <silent> <c-l> :wincmd l<CR>
+" nnoremap <silent> <c-j> :wincmd j<CR>
+" nnoremap <silent> <c-k> :wincmd k<CR>
 " nnoremap <D-r> :Navbuddy<CR>
+"
 nnoremap <D-r> :Telescope aerial<CR>
 inoremap <D-s> <C-\><C-o>:w<CR><ESC>
 nnoremap <D-s> :w<CR>
@@ -64,8 +66,20 @@ nnoremap <D-s-t> :BufferRestore<CR>
 nnoremap <Leader>nh :Noice history<CR>
 nnoremap <Leader>nl :Noice last<CR>
 nnoremap <Leader>ne :Noice errors<CR>
-
+nmap U <cmd>lua vim.lsp.buf.code_action({ context = { only = { "source.addMissingImports" } }, apply = true, silent = true })<CR>
 nmap R %
+
+" Obsidian
+nmap <Leader>ot :ObsidianToday<CR>
+nmap <Leader>od :ObsidianDailies<CR>
+nmap <Leader>os :ObsidianSearch<CR>
+nmap <Leader>on :ObsidianNew<CR>
+nmap <Leader>ow :ObsidianWorkspace<CR>
+
+" navigation
+nmap <Leader>nc :cd ~/Documents/Dev/carbonfact<CR>
+nmap <Leader>np :cd ~/Documents/Dev/carbonfact/platform<CR>
+nmap <Leader>nn :cd ~/Documents/Dev/carbonfact/niklas<CR>
 
 " Jest
 nmap <leader>jj :lua require("neotest").run.run()<CR>
