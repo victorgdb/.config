@@ -9,6 +9,9 @@ return {
     config = function()
       require('lsp-setup').setup {
         default_mappings = false,
+        mappings = {
+          gd = 'lua vim.lsp.buf.definition()',
+        },
         servers = {
           lua_ls = {
             settings = {
