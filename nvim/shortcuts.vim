@@ -8,12 +8,15 @@ nmap <c-g> :LazyGit<CR>
 nmap <Leader>zz :ZenMode<CR>
 nmap gf :lua vim.diagnostic.open_float()<CR>
 
+nmap <Leader>yy :%y<CR>
+nmap <Leader>vv ggVG
 " nnoremap <silent> <c-h> :wincmd h<CR>
 " nnoremap <silent> <c-l> :wincmd l<CR>
 " nnoremap <silent> <c-j> :wincmd j<CR>
 " nnoremap <silent> <c-k> :wincmd k<CR>
 " nnoremap <D-r> :Navbuddy<CR>
 "
+vnoremap x "_d
 nnoremap <D-r> :Telescope aerial<CR>
 inoremap <D-s> <C-\><C-o>:w<CR><ESC>
 nnoremap <D-s> :w<CR>
@@ -86,4 +89,8 @@ nmap <leader>jj :lua require("neotest").run.run()<CR>
 "Neorg
 nmap <leader>nj :Neorg journal today<CR>
 nmap <leader>bo :%bd\|e#<cr>
+
 nmap QQ <cmd>qa!<CR>
+
+" Grapple
+nmap <D-s-p> :Telescope grapple tags<cr>

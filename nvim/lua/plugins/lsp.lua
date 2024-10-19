@@ -11,6 +11,8 @@ return {
         default_mappings = false,
         mappings = {
           gd = 'lua vim.lsp.buf.definition()',
+          ['<space>ca'] = 'lua vim.lsp.buf.code_action()',
+          ['<C-k>'] = 'lua vim.lsp.buf.signature_help()',
         },
         servers = {
           lua_ls = {
@@ -94,7 +96,7 @@ return {
               { desc = 'Open daily note', nargs = "*" }
             )
           end
-          if client.supports_method('textDocument/format') then
+          if client.supports_method('textDocument/format') and client.name ~= "tsserver" then
             vim.cmd [[
               augroup format_on_save
                 au!
@@ -159,11 +161,13 @@ return {
           expandable_indicator = false,
           fields = { 'kind', 'abbr', 'menu' },
           format = function(entry, vim_item)
-            local kind = require("lspkind").cmp_format({ mode = "symbol_text", maxwidth = 50 })(entry, vim_item)
-            local strings = vim.split(kind.kind, "%s", { trimempty = true })
-            kind.kind = " " .. (strings[1] or "") .. " "
-            kind.menu = "    (" .. (strings[2] or "") .. ")"
-            return kind
+            vim_item.kind = (cmp_kinds[vim_item.kind] or '') .. vim_item.kind
+            return vim_item
+            -- local kind = require("lspkind").cmp_format({ mode = "symbol_text", maxwidth = 50 })(entry, vim_item)
+            -- local strings = vim.split(kind.kind, "%s", { trimempty = true })
+            -- kind.kind = " " .. (strings[1] or "") .. " "
+            -- kind.menu = "    (" .. (strings[2] or "") .. ")"
+            -- return kind
           end,
         },
         mapping = cmp.mapping.preset.insert {

@@ -80,75 +80,6 @@ vim.api.nvim_set_hl(0, 'IlluminatedWordRead', { link = 'Visual' })
 vim.opt.ignorecase = true -- Make searches case insensitive
 vim.opt.smartcase = true  -- Make searches case sensitive if there's an uppercase letter in the search
 
-function Grapple_files()
-  local contents = {}
-  local tags = require('grapple').tags()
-  local selected_index = require('grapple').name_or_index()
-  local current_file_path = vim.fn.fnamemodify(vim.fn.expand '%:p', ':.')
-
-  local function is_real_buffer(buffer)
-    if buffer == -1 then
-      return false
-    end
-    local buftype = vim.api.nvim_buf_get_option(buffer, 'buftype')
-    local filetype = vim.api.nvim_buf_get_option(buffer, 'filetype')
-    return buftype == '' and filetype ~= 'TelescopePrompt'
-  end
-
-  local function get_display_name(file_path)
-    local file_name = vim.fn.fnamemodify(file_path, ':t')
-    local lower_file_name = file_name:lower()
-    if lower_file_name == 'index.tsx' or lower_file_name == 'index.ts' then
-      local parent_dir = vim.fn.fnamemodify(file_path, ':h:t')
-      return parent_dir .. '/' .. file_name
-    end
-    return file_name
-  end
-
-  local current_in_list = false
-  for index, tag in ipairs(tags) do
-    local grapple_file_path = tag.path
-    local buffer_number = vim.fn.bufnr(grapple_file_path)
-    if buffer_number ~= -1 and vim.fn.filereadable(grapple_file_path) ~= 0 then
-      local display_name = get_display_name(grapple_file_path)
-      local padded_file_name = string.format(' %s ', display_name == '' and '(empty)' or display_name)
-      local padded_index = string.format(' %s. ', index)
-      if current_file_path == grapple_file_path or index == selected_index then
-        current_in_list = true
-        table.insert(contents, string.format('%%#GrappleSelected#%s%s', padded_index, padded_file_name))
-      else
-        table.insert(contents, string.format('%%#GrappleInactive#%s%s', padded_index, padded_file_name))
-      end
-    end
-  end
-
-  -- If the current buffer is not in the Grapple list and is a real buffer, add it at the end with a special highlight
-  local current_buffer_number = vim.fn.bufnr(current_file_path)
-  if not current_in_list and is_real_buffer(current_buffer_number) then
-    local current_file_name = vim.fn.fnamemodify(current_file_path, ':t')
-    local padded_file_name = string.format(' %s ', current_file_name)
-    table.insert(contents, string.format('%%#GrappleCurrentBuffer# %s ', padded_file_name))
-  end
-
-  table.insert(contents, '%#GrappleInactive#')
-  return table.concat(contents, ' ')
-end
-
--- set up autocommand to update the tabline with grapple tags
-vim.opt.showtabline = 2
-vim.api.nvim_create_autocmd({ 'bufenter', 'bufadd', 'user' }, {
-  callback = function(ev)
-    vim.o.tabline = Grapple_files()
-  end,
-})
-
-vim.cmd [[
-  highlight Search ctermfg=NONE ctermbg=NONE guifg=NONE guibg=NONE
-  highlight link Search LspReferenceText
-  highlight GrappleSelected guifg=#e0def4 guibg=#393552 gui=underline guisp=#f6c177
-  highlight GrappleInactive guifg=#908caa guibg=#2a273f
-  highlight GrappleCurrentBuffer guifg=#e0def4 guibg=#2a273f gui=underline guisp=#9ccfd8
-]]
 -- Define the toggle function
 local minifiles_toggle = function()
   if not MiniFiles.close() then
@@ -157,3 +88,20 @@ local minifiles_toggle = function()
   end
 end
 vim.keymap.set('n', '<c-f>', minifiles_toggle)
+
+function _G.snake_to_camel()
+  local s = vim.fn.getline(".")
+  local cursor = vim.fn.getcurpos()
+
+  -- Replace snake_case with camelCase
+  s = string.gsub(s, "_%a", function(c)
+    return string.upper(string.sub(c, 2))
+  end)
+
+  -- Update the current line with the new string
+  vim.fn.setline(".", s)
+  vim.fn.setpos(".", cursor)
+end
+
+-- Key mapping to trigger the snake_to_camel function
+vim.api.nvim_set_keymap("n", "<leader>nn", ":lua snake_to_camel()<CR>", { noremap = true, silent = true })

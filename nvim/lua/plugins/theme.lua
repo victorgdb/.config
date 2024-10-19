@@ -47,42 +47,73 @@ return {
           -- Enables dark background for treesitter-context window
           dark_background = true,
         },
-        override = {
-          TelescopeSelection = {
+        on_highlight = function(highlights, palette)
+          highlights.TelescopeSelection = {
             fg = '#88C0D0',
             bg = palette.gray2,
-          },
-          NeoTreeCursorLine = {
+          }
+          highlights.NeoTreeCursorLine = {
             fg = '#88C0D0',
             bg = palette.gray2,
-          },
-          TelescopeSelectionCaret = {
+          }
+          highlights.TelescopeSelectionCaret = {
             fg = '#88C0D0',
             bg = palette.gray2,
-          },
-          NormalFloat = {
+          }
+          highlights.NormalFloat = {
             bg = palette.bg_float,
-          },
-          PmenuSel = {
+          }
+          highlights.PmenuSel = {
             bg = palette.gray2,
-          },
-          Pmenu = {
+          }
+          highlights.Pmenu = {
             bg = palette.bg_float
-          },
-          Visual = {
+          }
+          highlights.Visual = {
             bg = palette.gray2,
-          },
-          MiniFilesNormal = {
+          }
+          highlights.MiniFilesNormal = {
             bg = palette.bg_float,
-          },
-          MiniFilesCursorLine = {
+          }
+          highlights.MiniFilesCursorLine = {
             bg = palette.gray2,
-          },
-          MiniFilesBorder = {
+          }
+          highlights.MiniFilesBorder = {
             bg = palette.bg_float,
             fg = palette.black0,
-          },
-        },
+          }
+          highlights.MiniFilesTitle = {
+            bg = palette.black1,
+          }
+          highlights.MiniFilesTitleFocused = {
+            bg = palette.black1,
+            fg = '#E7C173'
+          }
+          highlights.GrappleNormal = {
+            bg = palette.black1,
+            fg = palette.white0,
+          }
+          highlights.GrappleFloat = {
+            bg = palette.black1,
+            fg = palette.white0,
+          }
+          highlights.GrappleBorder = {
+            bg = palette.black1,
+            fg = palette.black0,
+          }
+          highlights.GrappleTitle = {
+            bg = palette.black1,
+            fg = '#E7C173'
+          }
+          highlights.GrappleFooter = {
+            bg = palette.black1,
+            fg = '#E7C173'
+          }
+          highlights.GrappleFloat = {
+            bg = palette.black1,
+            fg = palette.black1,
+          }
+        end,
       }
     end,
   },
