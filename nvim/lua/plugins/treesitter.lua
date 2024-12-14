@@ -1,6 +1,9 @@
 return {
   'nvim-treesitter/nvim-treesitter', -- syntax highlighting and general language understanding facilities
   run = ':TSUpdate',
+  dependencies = {
+    { "nushell/tree-sitter-nu", build = ":TSUpdate nu" },
+  },
   config = function()
     require('nvim-treesitter.configs').setup {
       ensure_installed = {

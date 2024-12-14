@@ -16,12 +16,18 @@ nmap <Leader>vv ggVG
 " nnoremap <silent> <c-k> :wincmd k<CR>
 " nnoremap <D-r> :Navbuddy<CR>
 "
+
+nmap <BS> :b #<CR>
 vnoremap x "_d
 nnoremap <D-r> :Telescope aerial<CR>
 inoremap <D-s> <C-\><C-o>:w<CR><ESC>
 nnoremap <D-s> :w<CR>
-" nmap <Leader>e :lua vim.lsp.buf.format()<CR>
-nnoremap <C-t> :ToggleTerm<CR>
+
+" Shit symbols
+inoremap <C-j> {}<Esc>i
+inoremap <C-k> []<Esc>i
+
+nmap <C-e> <C-u>
 nno <C-b> :DBUIToggle<CR>
 " nnoremap <silent><leader>h :lua require('harpeek').toggle()<CR>
 nmap gb :Gitsigns blame_line<CR>

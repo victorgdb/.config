@@ -23,7 +23,6 @@ local function toggle_profile()
   end
 end
 vim.keymap.set('', '<Leader>pr', toggle_profile)
-
 vim.opt.clipboard = ''
 vim.g.loaded_netrw = 1
 vim.g.loaded_netrwPlugin = 1
@@ -48,6 +47,14 @@ if not vim.loop.fs_stat(lazypath) then
     lazypath,
   }
 end
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = "lua",
+  callback = function()
+    -- vim.opt_local.expandtab = true -- Use spaces instead of tabs
+    -- vim.opt_local.shiftwidth = 2 -- Number of spaces for each indent
+    -- vim.opt_local.tabstop = 2    -- Number of spaces a <Tab> counts for
+  end,
+})
 vim.opt.rtp:prepend(lazypath)
 require('lazy').setup {
   spec = {
@@ -65,7 +72,7 @@ vim.diagnostic.config {
 vim.lsp.handlers['textDocument/signatureHelp'] = vim.lsp.with(vim.lsp.handlers.signature_help, {
   border = _border,
 })
--- vim.cmd.colorscheme 'kanagawa-dragon'
+-- vim.cmd.colorscheme 'kanagawa'
 -- vim.cmd.colorscheme 'rose-pine-moon'
 vim.cmd.colorscheme 'nordic'
 -- vim.cmd.colorscheme 'catppuccin'

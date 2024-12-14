@@ -12,7 +12,6 @@ return {
         mappings = {
           gd = 'lua vim.lsp.buf.definition()',
           ['<space>ca'] = 'lua vim.lsp.buf.code_action()',
-          ['<C-k>'] = 'lua vim.lsp.buf.signature_help()',
         },
         servers = {
           lua_ls = {
@@ -66,7 +65,14 @@ return {
           jsonls = {
             settings = {
               tabSize = 110,
+              provideFormatter = false,
             },
+            init_options = {
+              provideFormatter = false,
+            },
+            on_attach = function(client)
+              client.resolved_capabilities.document_formatting = false
+            end,
           },
           eslint = {},
           tailwindcss = {},
@@ -96,14 +102,14 @@ return {
               { desc = 'Open daily note', nargs = "*" }
             )
           end
-          if client.supports_method('textDocument/format') and client.name ~= "tsserver" then
-            vim.cmd [[
-              augroup format_on_save
-                au!
-                autocmd BufWritePre <buffer> lua vim.lsp.buf.format()
-              augroup END
-            ]]
-          end
+          -- if client.supports_method('textDocument/format') and client.name ~= "tsserver" then
+          --   vim.cmd [[
+          --     augroup format_on_save
+          --       au!
+          --       autocmd BufWritePre <buffer> lua vim.lsp.buf.format()
+          --     augroup END
+          --   ]]
+          -- end
         end
       })
     end,
@@ -180,7 +186,7 @@ return {
           ['<C-k>'] = cmp.mapping.select_prev_item(),
         },
         sources = cmp.config.sources {
-          { name = 'neorg' },
+          { name = 'orgmode' },
           { name = 'nvim_lsp_signature_help' },
           { name = 'nvim_lsp', option = {
             markdown_oxide = {

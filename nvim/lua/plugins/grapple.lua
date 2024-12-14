@@ -2,10 +2,9 @@ return {
   'cbochs/grapple.nvim',
   opts = {
     scope = 'git_branch', -- also try out "git_branch"
+    style = 'basename',
     win_opts = {
       -- Can be fractional
-      width = 120,
-      height = 42,
       row = 0.5,
       col = 0.5,
 
