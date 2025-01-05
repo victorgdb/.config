@@ -61,19 +61,18 @@ return {
           prismals = {},
           terraformls = {},
           yamlls = {},
-          -- sqls = {},
-          jsonls = {
-            settings = {
-              tabSize = 110,
-              provideFormatter = false,
-            },
-            init_options = {
-              provideFormatter = false,
-            },
-            on_attach = function(client)
-              client.resolved_capabilities.document_formatting = false
-            end,
-          },
+          -- jsonls = {
+          --   settings = {
+          --     tabSize = 110,
+          --     provideFormatter = false,
+          --   },
+          --   init_options = {
+          --     provideFormatter = false,
+          --   },
+          --   on_attach = function(client)
+          --     client.resolved_capabilities.document_formatting = false
+          --   end,
+          -- },
           eslint = {},
           tailwindcss = {},
           biome = {},
@@ -91,16 +90,12 @@ return {
           if client == nil then
             return
           end
-          if client.name == "markdown_oxide" then
-            vim.api.nvim_create_user_command(
-              "Daily",
-              function(args)
-                local input = args.args
+          if client.name == 'markdown_oxide' then
+            vim.api.nvim_create_user_command('Daily', function(args)
+              local input = args.args
 
-                vim.lsp.buf.execute_command({ command = "jump", arguments = { input } })
-              end,
-              { desc = 'Open daily note', nargs = "*" }
-            )
+              vim.lsp.buf.execute_command { command = 'jump', arguments = { input } }
+            end, { desc = 'Open daily note', nargs = '*' })
           end
           -- if client.supports_method('textDocument/format') and client.name ~= "tsserver" then
           --   vim.cmd [[
@@ -124,80 +119,60 @@ return {
     },
   },
   { 'Bilal2453/luvit-meta', lazy = true },
-  'hrsh7th/cmp-nvim-lsp',
-  {
-    'hrsh7th/nvim-cmp',
-    config = function()
-      local cmp = require 'cmp'
-      local cmp_kinds = {
-        Text = '  ',
-        Method = '  ',
-        Function = '  ',
-        Constructor = '  ',
-        Field = '  ',
-        Variable = '  ',
-        Class = '  ',
-        Interface = '  ',
-        Module = '  ',
-        Property = '  ',
-        Unit = '  ',
-        Value = '  ',
-        Enum = '  ',
-        Keyword = '  ',
-        Snippet = '  ',
-        Color = '  ',
-        File = '  ',
-        Reference = '  ',
-        Folder = '  ',
-        EnumMember = '  ',
-        Constant = '  ',
-        Struct = '  ',
-        Event = '  ',
-        Operator = '  ',
-        TypeParameter = '  ',
-      }
-      cmp.setup {
-        window = {
-          completion = {
-            col_offset = -3,
-            side_padding = 0,
-          },
-        },
-        formatting = {
-          expandable_indicator = false,
-          fields = { 'kind', 'abbr', 'menu' },
-          format = function(entry, vim_item)
-            vim_item.kind = (cmp_kinds[vim_item.kind] or '') .. vim_item.kind
-            return vim_item
-            -- local kind = require("lspkind").cmp_format({ mode = "symbol_text", maxwidth = 50 })(entry, vim_item)
-            -- local strings = vim.split(kind.kind, "%s", { trimempty = true })
-            -- kind.kind = " " .. (strings[1] or "") .. " "
-            -- kind.menu = "    (" .. (strings[2] or "") .. ")"
-            -- return kind
-          end,
-        },
-        mapping = cmp.mapping.preset.insert {
-          ['<C-b>'] = cmp.mapping.scroll_docs(-4),
-          ['<C-f>'] = cmp.mapping.scroll_docs(4),
-          ['<D-Space>'] = cmp.mapping.complete(),
-          ['<C-e>'] = cmp.mapping.abort(),
-          ['<CR>'] = cmp.mapping.confirm { select = true },
-          ['<C-j>'] = cmp.mapping.select_next_item(),
-          ['<C-k>'] = cmp.mapping.select_prev_item(),
-        },
-        sources = cmp.config.sources {
-          { name = 'orgmode' },
-          { name = 'nvim_lsp_signature_help' },
-          { name = 'nvim_lsp', option = {
-            markdown_oxide = {
-              keyword_pattern = [[\(\k\| \|\/\|#\)\+]]
-            }
-          } },
-          { name = 'buffer' },
-          { name = 'lazydev' },
-        },
-      }
-    end,
-  },
   'onsails/lspkind.nvim',
+  {
+    'saghen/blink.cmp',
+    -- optional: provides snippets for the snippet source
+    dependencies = 'rafamadriz/friendly-snippets',
+
+    -- use a release tag to download pre-built binaries
+    version = '*',
+    -- AND/OR build from source, requires nightly: https://rust-lang.github.io/rustup/concepts/channels.html#working-with-nightly-rust
+    -- build = 'cargo build --release',
+    -- If you use nix, you can build from source using latest nightly rust with:
+    -- build = 'nix run .#build-plugin',
+
+    ---@module 'blink.cmp'
+    ---@type blink.cmp.Config
+    opts = {
+      completion = {
+        documentation = { auto_show = true, auto_show_delay_ms = 500 },
+
+        -- Display a preview of the selected item on the current line
+        -- ghost_text = { enabled = true },
+        list = {
+          selection = 'preselect'
+        }
+      },
+      -- 'default' for mappings similar to built-in completion
+      -- 'super-tab' for mappings similar to vscode (tab to accept, arrow keys to navigate)
+      -- 'enter' for mappings similar to 'super-tab' but with 'enter' to accept
+      -- See the full "keymap" documentation for information on defining your own keymap.
+      keymap = {
+        ['<C-a>'] = { 'show', 'show_documentation', 'hide_documentation', 'fallback' },
+        ['<CR>'] = { 'select_and_accept', 'fallback' },
+        ['<Tab>'] = { 'accept', 'fallback' },
+
+        ['<C-k>'] = { 'select_prev', 'fallback' },
+        ['<C-j>'] = { 'select_next', 'fallback' },
+      },
+
+      appearance = {
+        -- Sets the fallback highlight groups to nvim-cmp's highlight groups
+        -- Useful for when your theme doesn't support blink.cmp
+        -- Will be removed in a future release
+        use_nvim_cmp_as_default = true,
+        -- Set to 'mono' for 'Nerd Font Mono' or 'normal' for 'Nerd Font'
+        -- Adjusts spacing to ensure icons are aligned
+        nerd_font_variant = 'mono'
+      },
+
+      -- Default list of enabled providers defined so that you can extend it
+      -- elsewhere in your config, without redefining it, due to `opts_extend`
+      sources = {
+        default = { 'lsp', 'path', 'buffer' },
+      },
+    },
+    opts_extend = { "sources.default" }
+  }
 }
