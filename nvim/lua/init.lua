@@ -87,15 +87,6 @@ vim.api.nvim_set_hl(0, 'IlluminatedWordRead', { link = 'Visual' })
 vim.opt.ignorecase = true -- Make searches case insensitive
 vim.opt.smartcase = true  -- Make searches case sensitive if there's an uppercase letter in the search
 
--- Define the toggle function
-local minifiles_toggle = function()
-  if not MiniFiles.close() then
-    MiniFiles.open(vim.api.nvim_buf_get_name(0))
-    MiniFiles.reveal_cwd()
-  end
-end
-vim.keymap.set('n', '<c-f>', minifiles_toggle)
-
 function _G.snake_to_camel()
   local s = vim.fn.getline(".")
   local cursor = vim.fn.getcurpos()

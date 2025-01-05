@@ -7,7 +7,7 @@ nmap <Leader>ff :Telescope live_grep<CR>
 nmap <c-g> :LazyGit<CR>
 nmap <Leader>zz :ZenMode<CR>
 nmap gf :lua vim.diagnostic.open_float()<CR>
-
+nmap <c-f> :Neotree toggle<CR>
 nmap <Leader>yy :%y<CR>
 nmap <Leader>vv ggVG
 " nnoremap <silent> <c-h> :wincmd h<CR>
@@ -20,6 +20,7 @@ nmap <Leader>vv ggVG
 nmap <BS> :b #<CR>
 vnoremap x "_d
 nnoremap <D-r> :Telescope aerial<CR>
+nnoremap <M-r> :Telescope aerial<CR>
 inoremap <D-s> <C-\><C-o>:w<CR><ESC>
 nnoremap <D-s> :w<CR>
 
