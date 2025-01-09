@@ -7,7 +7,6 @@ nmap <Leader>ff :Telescope live_grep<CR>
 nmap <c-g> :LazyGit<CR>
 nmap <Leader>zz :ZenMode<CR>
 nmap gf :lua vim.diagnostic.open_float()<CR>
-nmap <c-f> :Neotree toggle<CR>
 nmap <Leader>yy :%y<CR>
 nmap <Leader>vv ggVG
 " nnoremap <silent> <c-h> :wincmd h<CR>
@@ -78,6 +77,10 @@ nnoremap <Leader>nl :Noice last<CR>
 nnoremap <Leader>ne :Noice errors<CR>
 nmap U <cmd>lua vim.lsp.buf.code_action({ context = { only = { "source.addMissingImports" } }, apply = true, silent = true })<CR>
 nmap R %
+
+
+nmap <Leader>tt :TT<CR>
+nmap <Leader>tr :TR<CR>
 
 " Obsidian
 nmap <Leader>ot :ObsidianToday<CR>

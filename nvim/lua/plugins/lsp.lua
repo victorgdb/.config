@@ -141,7 +141,7 @@ return {
         -- Display a preview of the selected item on the current line
         -- ghost_text = { enabled = true },
         list = {
-          selection = 'preselect'
+          selection = { preselect = true }
         }
       },
       -- 'default' for mappings similar to built-in completion

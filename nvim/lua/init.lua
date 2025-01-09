@@ -34,6 +34,15 @@ vim.g.minimap_git_colors = 1
 vim.wo.relativenumber = true
 vim.opt.swapfile = false
 
+--- Define the toggle function
+local minifiles_toggle = function()
+  if not MiniFiles.close() then
+    MiniFiles.open(vim.api.nvim_buf_get_name(0))
+    MiniFiles.reveal_cwd()
+  end
+end
+vim.keymap.set('n', '<c-f>', minifiles_toggle)
+
 -- local U = require 'utils.chars'
 -- Map the key combination to the toggle function
 local lazypath = vim.fn.stdpath 'data' .. '/lazy/lazy.nvim'
@@ -50,9 +59,9 @@ end
 vim.api.nvim_create_autocmd("FileType", {
   pattern = "lua",
   callback = function()
-    -- vim.opt_local.expandtab = true -- Use spaces instead of tabs
-    -- vim.opt_local.shiftwidth = 2 -- Number of spaces for each indent
-    -- vim.opt_local.tabstop = 2    -- Number of spaces a <Tab> counts for
+    vim.opt_local.expandtab = true -- Use spaces instead of tabs
+    vim.opt_local.shiftwidth = 2   -- Number of spaces for each indent
+    vim.opt_local.tabstop = 2      -- Number of spaces a <Tab> counts for
   end,
 })
 vim.opt.rtp:prepend(lazypath)
@@ -103,3 +112,10 @@ end
 
 -- Key mapping to trigger the snake_to_camel function
 vim.api.nvim_set_keymap("n", "<leader>nn", ":lua snake_to_camel()<CR>", { noremap = true, silent = true })
+-- Disable Copilot for Markdown files
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = "markdown",
+  callback = function()
+    vim.b.copilot_enabled = false
+  end,
+})
