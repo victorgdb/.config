@@ -61,18 +61,19 @@ return {
           prismals = {},
           terraformls = {},
           yamlls = {},
-          -- jsonls = {
-          --   settings = {
-          --     tabSize = 110,
-          --     provideFormatter = false,
-          --   },
-          --   init_options = {
-          --     provideFormatter = false,
-          --   },
-          --   on_attach = function(client)
-          --     client.resolved_capabilities.document_formatting = false
-          --   end,
-          -- },
+          -- sqls = {},
+          jsonls = {
+            settings = {
+              tabSize = 110,
+              provideFormatter = false,
+            },
+            init_options = {
+              provideFormatter = false,
+            },
+            on_attach = function(client)
+              client.resolved_capabilities.document_formatting = false
+            end,
+          },
           eslint = {},
           tailwindcss = {},
           biome = {},
@@ -90,12 +91,16 @@ return {
           if client == nil then
             return
           end
-          if client.name == 'markdown_oxide' then
-            vim.api.nvim_create_user_command('Daily', function(args)
-              local input = args.args
+          if client.name == "markdown_oxide" then
+            vim.api.nvim_create_user_command(
+              "Daily",
+              function(args)
+                local input = args.args
 
-              vim.lsp.buf.execute_command { command = 'jump', arguments = { input } }
-            end, { desc = 'Open daily note', nargs = '*' })
+                vim.lsp.buf.execute_command({ command = "jump", arguments = { input } })
+              end,
+              { desc = 'Open daily note', nargs = "*" }
+            )
           end
           -- if client.supports_method('textDocument/format') and client.name ~= "tsserver" then
           --   vim.cmd [[
@@ -119,7 +124,7 @@ return {
     },
   },
   { 'Bilal2453/luvit-meta', lazy = true },
-  'onsails/lspkind.nvim',
+  'hrsh7th/cmp-nvim-lsp',
   {
     'saghen/blink.cmp',
     -- optional: provides snippets for the snippet source
